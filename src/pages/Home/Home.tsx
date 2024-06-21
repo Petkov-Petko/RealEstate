@@ -1,7 +1,7 @@
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+import NavBar from "../../components/NavBar/NavBar";
 
-export default Home
+const Home = () => {
+  return <NavBar />;
+};
+
+export default Home;
