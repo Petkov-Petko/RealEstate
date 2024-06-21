@@ -1,13 +1,14 @@
 import "./NavBarPublic.css";
+import { assets } from "../../../assets/assets";
 
 const NavBarPublic = () => {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       <div>
         <img
-          src="your-image-url"
-          alt="description"
-          style={{ width: "100px", height: "100px" }}
+        className="w-30 h-16"
+          src={assets.logo}
+          alt="logo"
         />
       </div>
       <div>
