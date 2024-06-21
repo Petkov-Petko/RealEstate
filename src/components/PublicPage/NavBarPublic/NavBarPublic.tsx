@@ -3,7 +3,7 @@ import { assets } from "../../../assets/assets";
 
 const NavBarPublic = () => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center mx-6 my-4">
       <div>
         <img
         className="w-30 h-16"
@@ -11,11 +11,8 @@ const NavBarPublic = () => {
           alt="logo"
         />
       </div>
-      <div>
-        <ul className="flex flex-row gap-10">
-          <li>
-            <a href="/">Home</a>
-          </li>
+      <div className="public-li-el">
+        <ul className="flex flex-row gap-10 text-lg">
           <li>
             <a href="/about">About</a>
           </li>

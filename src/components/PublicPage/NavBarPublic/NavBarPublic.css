@@ -1,0 +1,10 @@
+.public-li-el ul li:hover {
+    color: #008080;
+}
+
+.public-li-el ul li:last-child a{
+    background-color: #008080;
+    border-radius: 11px;
+    padding: 11px;
+    color: white;
+}
