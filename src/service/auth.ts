@@ -1,14 +1,20 @@
-import {getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, signInWithPopup } from 'firebase/auth';
+import {getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, signInWithPopup, updateProfile } from 'firebase/auth';
 import { auth } from '../config/firebase-config.js';
 
-
-
-export const signUp = async (emailAddress: string, password: string) => {
+export const signUp = async (emailAddress: string, password: string, displayName: string) => {
     try {
         const userCredentials = await createUserWithEmailAndPassword(auth, emailAddress, password);
+        if (userCredentials.user) {
+            await updateProfile(userCredentials.user, {
+                displayName: displayName,
+            });
+        }
         return userCredentials;
-    } catch (error) {
-        console.log(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        if(error.code === 'auth/email-already-in-use') {
+            alert("Email already exists");
+        }
     }
 }
 
@@ -47,7 +53,14 @@ export const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     try {
-        await signInWithPopup(auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        if (user) {
+            return {
+              email: user.email,
+              username: user.displayName,
+            };
+          }
       } catch (error) {
         console.log(error);
       }
