@@ -3,6 +3,7 @@ import { useState } from "react";
 import { UserLogIn } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
+import { createUser } from "../../service/db-service";
 
 const initialValue: UserLogIn = {
   email: "",
@@ -28,8 +29,14 @@ const LoginForm = () => {
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     try {
-      await googleSignIn();
+      const userDetails = await googleSignIn();
+       if (userDetails?.username && userDetails?.email) {
+        await createUser({
+          username: userDetails.username,
+          email: userDetails.email,
+        });
       navigate("/home");
+       }
     } catch (error) {
       console.log(error);
     }
