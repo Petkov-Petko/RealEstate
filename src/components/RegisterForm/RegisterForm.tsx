@@ -9,6 +9,7 @@ import {
 } from "../../common/constants";
 import { useUserAuth } from "../../context/userAuthContext";
 import { createUser, checkIfUserExists } from "../../service/db-service";
+import { assets } from "../../assets/assets";
 
 const initialValue: UserSignIn = {
   username: "",
@@ -83,48 +84,57 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <p className="title">Create account</p>
-      <form onSubmit={register} className="form">
-        <input
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, username: e.target.value })
-          }
-          value={userDetails.username}
-          type="text"
-          className="input"
-          placeholder="Name"
-          required
-        />
-        <input
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, email: e.target.value })
-          }
-          value={userDetails.email}
-          type="email"
-          className="input"
-          placeholder="Email"
-          required
-        />
-        <input
-          onChange={(e) =>
-            setUserDetails({ ...userDetails, password: e.target.value })
-          }
-          value={userDetails.password}
-          type="password"
-          className="input"
-          placeholder="Password"
-          required
-        />
-        <button className="form-btn">Create account</button>
-      </form>
-      <p className="sign-up-label" onClick={() => navigate("/login")}>
-        Already have an account?<span className="sign-up-link">Log in</span>
-      </p>
-      <div className="buttons-container">
-        <div className="google-login-button">
-          <span onClick={handleGoogleSignIn}>Sign up with Google</span>
+    <div>
+      <img
+        src={assets.loginImage}
+        alt="login"
+        className="inset-0 w-full h-screen object-cover"
+      />
+      <img src={assets.logo} className="logo-position"></img>
+      <div className="form-container">
+        <p className="title">Create account</p>
+        <form onSubmit={register} className="form">
+          <input
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, username: e.target.value })
+            }
+            value={userDetails.username}
+            type="text"
+            className="input"
+            placeholder="Name"
+            required
+          />
+          <input
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, email: e.target.value })
+            }
+            value={userDetails.email}
+            type="email"
+            className="input"
+            placeholder="Email"
+            required
+          />
+          <input
+            onChange={(e) =>
+              setUserDetails({ ...userDetails, password: e.target.value })
+            }
+            value={userDetails.password}
+            type="password"
+            className="input"
+            placeholder="Password"
+            required
+          />
+          <button className="form-btn">Create account</button>
+        </form>
+        <div className="buttons-container">
+          <div className="google-login-button">
+            <i className="fa-brands fa-google fa-xl"></i>
+            <span onClick={handleGoogleSignIn}>Sign up with Google</span>
+          </div>
         </div>
+        <p className="sign-up-label" onClick={() => navigate("/login")}>
+          Already have an account?<span className="sign-up-link">Log in</span>
+        </p>
       </div>
     </div>
   );

@@ -1,13 +1,17 @@
 .form-container {
-    width: 350px;
-    height: 550px;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 20px 30px;
-  }
-  
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 500px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 30px;
+}
+
   .title {
     text-align: center;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -60,7 +64,8 @@
   
   .sign-up-label {
     margin: 0;
-    font-size: 10px;
+    padding-top: 11px;
+    font-size: 14px;
     color: #747474;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -116,4 +121,11 @@
       .google-icon {
     font-size: 18px;
     margin-bottom: 1px;
+  }
+
+  .logo-position{
+    position: absolute;
+    top: 7%;
+    left: 5%;
+    width: 150px;
   }
