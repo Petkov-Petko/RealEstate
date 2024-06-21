@@ -1,0 +1,44 @@
+.text-inside {
+    position: absolute;
+    top: 15%;
+    left: 7%;
+    /* transform: translate(-50%, -50%); */
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    white-space: nowrap; 
+}
+
+.text-inside p{
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.text-inside p span{
+    color: #008080;
+}
+
+.text-inside button {
+    background-color: #008080;
+    border-radius: 11px;
+    padding: 11px;
+    color: white;
+    width: fit-content;
+}
+
+.home-img{
+    width: 100%;
+    height: 700px;
+    border-radius: 15px;
+}
+
+.text-inside-right{
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
