@@ -11,7 +11,7 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAU9SPXL3a_8XysO0885l6rt3tjO2gmHL4",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "realestate-dcdcb.firebaseapp.com",
   databaseURL: "https://realestate-dcdcb-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "realestate-dcdcb",
