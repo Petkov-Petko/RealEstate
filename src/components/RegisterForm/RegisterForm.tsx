@@ -8,6 +8,7 @@ import {
   regex_password,
 } from "../../common/constants";
 import { useUserAuth } from "../../context/userAuthContext";
+import { createUser, checkIfUserExists } from "../../service/db-service";
 
 const initialValue: UserSignIn = {
   username: "",
@@ -38,7 +39,27 @@ const RegisterForm = () => {
         return;
       }
 
-      await signUp(userDetails.email, userDetails.password);
+      const [usernameExists, emailExists] =
+        (await checkIfUserExists(userDetails.username, userDetails.password)) ||
+        [];
+      if (usernameExists && !usernameExists.exists()) {
+        if (emailExists && !emailExists.exists()) {
+          await createUser({
+            username: userDetails.username,
+            email: userDetails.email,
+          });
+          await signUp(
+            userDetails.email,
+            userDetails.password,
+            userDetails.username
+          );
+        } else {
+          alert("Email already exists");
+        }
+      } else {
+        alert("Username already exists");
+      }
+
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -48,8 +69,14 @@ const RegisterForm = () => {
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     try {
-      await googleSignIn();
-      navigate("/home");
+      const userDetails = await googleSignIn();
+      if (userDetails?.username && userDetails?.email) {
+        await createUser({
+          username: userDetails.username,
+          email: userDetails.email,
+        });
+        navigate("/home");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +118,7 @@ const RegisterForm = () => {
         />
         <button className="form-btn">Create account</button>
       </form>
-      <p className="sign-up-label"  onClick={()=> navigate("/login")}>
+      <p className="sign-up-label" onClick={() => navigate("/login")}>
         Already have an account?<span className="sign-up-link">Log in</span>
       </p>
       <div className="buttons-container">
