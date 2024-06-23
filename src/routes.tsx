@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import Sell from "./pages/Sell/Sell";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ export const router = createBrowserRouter([
         element: <Home />,
         errorElement: <Error />,
       },
+      {
+        path: "/sell",
+        element: <Sell />,
+        errorElement: <Error />,
+      }
     ],
   },
   {
