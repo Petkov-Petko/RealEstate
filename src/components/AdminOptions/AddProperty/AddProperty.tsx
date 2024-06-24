@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Property } from "../../../types/types";
 import { addProperty, updateProperty } from "../../../service/db-service";
 import { uploadFile, getFiles } from "../../../service/storage";
+import Loading from "../../Loading/Loading";
 
 const AddProperty = () => {
   const [photos, setPhotos] = useState<File[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [property, setProperty] = useState<Property>({
     name: "",
     square: null,
@@ -27,7 +29,6 @@ const AddProperty = () => {
     if (files) {
       const newPhotos: File[] = Array.from(files);
       setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
-      console.log(photos);
     }
   };
 
@@ -56,10 +57,13 @@ const AddProperty = () => {
         setErrorMessage("Fields must be greater than 0!");
         return;
       }
-      console.log(photos);
 
-      const id = await addProperty(property);
-      if (id) {
+      if (photos.length === 0) {
+        setErrorMessage("At least one photo is required!");
+        return;
+      } else {
+        setLoading(true);
+        const id: string = await addProperty(property) as string;
         try {
           await addPhotosToProperty(id);
           const photos = await getFiles(id);
@@ -71,10 +75,9 @@ const AddProperty = () => {
         } catch (error) {
           console.error("Error during photo operations:", error);
         }
-      } else {
-        console.log("error in id");
       }
 
+      setLoading(false);
       setSuccessMessage("Property added successfully!");
       setErrorMessage("");
     } catch (error) {
@@ -92,10 +95,9 @@ const AddProperty = () => {
     }
   };
 
-
-
   return (
     <div>
+      {loading && <Loading />}
       <div>
         <div className="mt-4 flex flex-col bg-gray-100 rounded-lg p-4 shadow-sm">
           <h2 className="ai-story-maker-dream-form text-black font-bold text-2xl">
@@ -311,18 +313,3 @@ const AddProperty = () => {
 };
 
 export default AddProperty;
-
-{
-  /* <div className="photos-preview flex w-full">
-{photos.map((photo, index) => (
-  <>
-    <img
-      key={index}
-      src={URL.createObjectURL(photo)}
-      alt={`Uploaded ${index + 1}`}
-      className="rounded-md p-2 mb-4 w-48"
-    />
-  </>
-))}
-</div> */
-}
