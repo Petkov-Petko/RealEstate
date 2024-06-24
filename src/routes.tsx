@@ -5,7 +5,9 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import ProtectedRoutes from "./components/ProtectedRoutes";
-import Sell from "./pages/Sell/Sell";
+import Admin from "./pages/Admin/Admin";
+
+import Properties from "./pages/Properties/Properties";
 
 export const router = createBrowserRouter([
   {
@@ -17,8 +19,13 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/sell",
-        element: <Sell />,
+        path: "/properties",
+        element: <Properties />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
         errorElement: <Error />,
       }
     ],
