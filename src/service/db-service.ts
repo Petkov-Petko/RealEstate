@@ -26,3 +26,12 @@ export const checkIfUserExists = async (username: string, email:string) => {
     return [null, null];
   }
 }
+
+export const getAllProperties = async () => {
+  try {
+    const snapshot = await get(ref(database, "properties"));
+    return snapshot;
+  } catch (error) {
+    console.log(error);
+  }
+}
