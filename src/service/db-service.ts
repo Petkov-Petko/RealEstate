@@ -1,5 +1,6 @@
 import {database} from "../config/firebase-config";
 import { ref, get, set, update, query, equalTo, orderByChild, push } from "firebase/database";
+import { Property } from "../types/types";
 
 
 interface UserDetails {
@@ -33,5 +34,23 @@ export const getAllProperties = async () => {
     return snapshot;
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+export const addProperty = async (property: Property):  Promise<string | void | null> =>{
+  try {
+    const propertyRef = await push(ref(database, "properties"), property);
+    return propertyRef.key; 
+  } catch (error) {
+    console.error("Error adding property: ", error);
+  }
+};
+
+export const updateProperty = async (propertyId: string, property: Property) => {
+  try {
+    await update(ref(database, `properties/${propertyId}`), property);
+  } catch (error) {
+    console.error("Error updating property: ", error);
   }
 }
