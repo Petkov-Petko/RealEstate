@@ -2,10 +2,12 @@ import "./NavBar.css";
 import { useUserAuth } from "../../context/userAuthContext";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { logOut, user } = useUserAuth();
   const [showOptions, setShowOptions] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex justify-between items-center mx-4 my-4">
@@ -44,7 +46,7 @@ const NavBar = () => {
             <button className="value">Public profile</button>
             <button className="value">Account</button>
             <button className="value">Appearance</button>
-            <button className="value">Accessibility</button>
+            <button onClick={()=> navigate("/admin")} className="value">Admin</button>
             <button onClick={logOut} className="value">Log Out</button>
           </div>
         )}
