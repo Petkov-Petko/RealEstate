@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Property } from "../../types/types";
 import Map from "../Map/Map";
 
+
 const PropertiesForm = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
@@ -12,6 +13,8 @@ const PropertiesForm = () => {
     city: "Varna",
     deal: "buy",
   });
+  const [coordinates, setCoordinates] = useState({ lat: 43.2141, lng: 27.9147 } as { lat: number, lng: number } | null);
+
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -35,9 +38,14 @@ const PropertiesForm = () => {
   }, []);
 
 
+
     const filterProperties = () => {
       console.log(filters);
-      
+      if (filters.city === "Sofia") {
+        setCoordinates({ lat: 42.6977, lng: 23.3219 });
+      }else{
+        setCoordinates({ lat: 43.2141, lng: 27.9147 });
+      }
       const filteredProperties = properties.filter((property) => {
         return (
           (filters.homeType === "All types" ||
@@ -111,7 +119,7 @@ const PropertiesForm = () => {
               </div>
               <div className="flex justify-between items-center">
                 <p className="property-title">{property.name}</p>
-                <p className="property-title">${property.price}</p>
+                <p className="font-bold">${property.price}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p>{property.city}</p>
@@ -125,8 +133,8 @@ const PropertiesForm = () => {
           ))}
         </div>
         <div className="all-properties-map">
-          <Map />
-        </div>
+          <Map coordinates ={coordinates} properties={filteredProperties} />
+        </div> 
       </div>
     </div>
   );
