@@ -2,9 +2,16 @@ import "./PropertiesForm.css";
 import { getAllProperties } from "../../service/db-service";
 import { useEffect, useState } from "react";
 import { Property } from "../../types/types";
+import Map from "../Map/Map";
 
 const PropertiesForm = () => {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
+  const [filters, setFilters] = useState({
+    homeType: "All types",
+    city: "Varna",
+    deal: "buy",
+  });
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -17,6 +24,7 @@ const PropertiesForm = () => {
             propertiesList.push(property);
           });
           setProperties(propertiesList);
+          setFilteredProperties(propertiesList);
         }
       } catch (error) {
         console.error("Failed to fetch properties:", error);
@@ -27,30 +35,65 @@ const PropertiesForm = () => {
   }, []);
 
 
+    const filterProperties = () => {
+      console.log(filters);
+      
+      const filteredProperties = properties.filter((property) => {
+        return (
+          (filters.homeType === "All types" ||
+            property.type === filters.homeType) &&
+          (filters.city === "all" || property.city === filters.city) &&
+          (filters.deal === "buy" || property.deal === filters.deal)
+        );
+      });
+      setFilteredProperties(filteredProperties);
+    };
 
   return (
     <div>
       <div className="propertyFilter">
-        <select name="homeType" id="homeType" className="property-filters">
-          <option value="all">All types</option>
+        <select
+          value={filters.homeType}
+          onChange={(e) => setFilters({ ...filters, homeType: e.target.value })}
+          name="homeType"
+          id="homeType"
+          className="property-filters"
+        >
+          <option value="All types">All types</option>
           <option value="house">House</option>
           <option value="apartment">Apartment</option>
         </select>
-        <select name="city" id="city" className="property-filters">
-          <option value="varna">Varna</option>
-          <option value="sofia">Sofia</option>
+        <select
+          value={filters.city}
+          onChange={(e) => setFilters({ ...filters, city: e.target.value })}
+          name="city"
+          id="city"
+          className="property-filters"
+        >
+          <option value="Varna">Varna</option>
+          <option value="Sofia">Sofia</option>
           <option value="all">All</option>
         </select>
-        <select name="deal" id="deal" className="property-filters">
+        <select 
+          value={filters.deal}
+          onChange={(e) => setFilters({ ...filters, deal: e.target.value })}
+        name="deal" id="deal" className="property-filters">
           <option value="buy">Buy</option>
           <option value="rent">Rent</option>
         </select>
-        <input type="text" placeholder="Max Price" className="property-filters"/>
-        <button className="property-filters"><i className="fa-solid fa-filter fa-lg"></i>Filter</button>
+        <input
+          type="text"
+          placeholder="Max Price"
+          className="property-filters"
+        />
+        <button onClick={filterProperties} className="property-filters">
+          <i className="fa-solid fa-filter fa-lg"></i>Filter
+        </button>
       </div>
       <div className="flex mx-4 gap-3">
         <div className="all-properties">
-          {properties.map((property, index) => (
+          {filteredProperties.length === 0 && (<div>No properties found</div>)}
+          {filteredProperties.map((property, index) => (
             <div key={index} className="property">
               <div>
                 <img src={property.photos[0]} alt="property" />
@@ -81,7 +124,9 @@ const PropertiesForm = () => {
             </div>
           ))}
         </div>
-        <div className="all-properties-map"></div>
+        <div className="all-properties-map">
+          <Map />
+        </div>
       </div>
     </div>
   );
