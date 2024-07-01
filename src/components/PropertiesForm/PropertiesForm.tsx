@@ -2,7 +2,7 @@ import "./PropertiesForm.css";
 import { getAllProperties } from "../../service/db-service";
 import { useEffect, useState } from "react";
 import { Property } from "../../types/types";
-import Map from "../Map/Map";
+import GoogleMap from "../Map/Map";
 
 
 const PropertiesForm = () => {
@@ -133,7 +133,7 @@ const PropertiesForm = () => {
           ))}
         </div>
         <div className="all-properties-map">
-          <Map coordinates ={coordinates} properties={filteredProperties} />
+          <GoogleMap coordinates ={coordinates} properties={filteredProperties} />
         </div> 
       </div>
     </div>

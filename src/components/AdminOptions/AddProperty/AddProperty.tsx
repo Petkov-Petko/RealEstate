@@ -22,6 +22,8 @@ const AddProperty = () => {
     description: "",
     deal: "buy",
     photos: [],
+    lat: 0,
+    lng: 0,
   });
 
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,17 +65,40 @@ const AddProperty = () => {
         return;
       } else {
         setLoading(true);
-        const id: string = await addProperty(property) as string;
+        const address = `${property.street}, ${property.city}`;
         try {
-          await addPhotosToProperty(id);
-          const photos = await getFiles(id);
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+              address
+            )}&key=${import.meta.env.VITE_GOOGLE_KEY}`
+          );
+          const data = await response.json();
+          if (data.status === "OK") {
+            const location = data.results[0].geometry.location;
+            console.log("Location from API:", location); // Debugging line
+            setProperty(prevProperty => ({
+              ...prevProperty,
+              lat: location.lat,
+              lng: location.lng,
+            }));
+          } else {
+            console.log("API response data:", data); // Debugging line
+          }
+          const id: string = (await addProperty(property)) as string;
+          try {
+            await addPhotosToProperty(id);
+            const photos = await getFiles(id);
 
-          await updateProperty(id, {
-            ...property,
-            photos: photos,
-          });
-        } catch (error) {
-          console.error("Error during photo operations:", error);
+            await updateProperty(id, {
+              ...property,
+              photos: photos,
+            });
+            console.log(property);
+          } catch (error) {
+            console.error("Error during photo operations:", error);
+          }
+        } catch (e) {
+          console.log(e);
         }
       }
 

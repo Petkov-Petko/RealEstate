@@ -21,4 +21,6 @@ export interface Property {
     description: string;
     deal: string;
     photos: string[];
+    lat: number,
+    lng: number
 }
