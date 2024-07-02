@@ -10,6 +10,7 @@ const AddProperty = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
   const [property, setProperty] = useState<Property>({
     name: "",
     square: null,
@@ -34,87 +35,46 @@ const AddProperty = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (
-        property.name === "" ||
-        property.description === "" ||
-        property.square === null ||
-        property.price === null ||
-        property.rooms === null ||
-        property.baths === null ||
-        property.city === "" ||
-        property.street === ""
-      ) {
-        setErrorMessage("All fields are required!");
-        return;
-      }
-      if (
-        property.square <= 0 ||
-        property.price <= 0 ||
-        property.rooms <= 0 ||
-        property.baths <= 0
-      ) {
-        setErrorMessage("Fields must be greater than 0!");
-        return;
-      }
-
-      if (photos.length === 0) {
-        setErrorMessage("At least one photo is required!");
-        return;
-      } else {
-        setLoading(true);
-        const address = `${property.street}, ${property.city}`;
-        try {
-          const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-              address
-            )}&key=${import.meta.env.VITE_GOOGLE_KEY}`
-          );
-          const data = await response.json();
-          if (data.status === "OK") {
-            const location = data.results[0].geometry.location;
-            console.log("Location from API:", location); // Debugging line
-            setProperty(prevProperty => ({
-              ...prevProperty,
-              lat: location.lat,
-              lng: location.lng,
-            }));
-          } else {
-            console.log("API response data:", data); // Debugging line
-          }
-          const id: string = (await addProperty(property)) as string;
-          try {
-            await addPhotosToProperty(id);
-            const photos = await getFiles(id);
-
-            await updateProperty(id, {
-              ...property,
-              photos: photos,
-            });
-            console.log(property);
-          } catch (error) {
-            console.error("Error during photo operations:", error);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-
-      setLoading(false);
-      setSuccessMessage("Property added successfully!");
-      setErrorMessage("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const addPhotosToProperty = async (propertyId: string) => {
     try {
       for (let i = 0; i < photos.length; i++) {
         await uploadFile(propertyId, photos[i], photos[i].name);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      
+      const id: string = (await addProperty(property)) as string;
+      await addPhotosToProperty(id);
+      const photosUrls = await getFiles(id);
+
+      const address = `${property.street}, ${property.city}`;
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          address
+        )}&key=${import.meta.env.VITE_GOOGLE_KEY}`
+      );
+      const data = await response.json();
+      const location= await data.results[0].geometry.location;
+      
+      await updateProperty(id, {
+        ...property,
+        photos: photosUrls,
+        lat: location.lat,
+        lng: location.lng,
+      });
+
+      setLoading(false);
+      setSuccessMessage("Property added successfully!");
+      setErrorMessage("");
     } catch (error) {
       console.log(error);
     }
