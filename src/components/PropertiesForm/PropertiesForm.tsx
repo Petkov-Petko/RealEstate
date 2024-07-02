@@ -44,7 +44,7 @@ const PropertiesForm = () => {
       if (filters.city === "Sofia") {
         setCoordinates({ lat: 42.6977, lng: 23.3219 });
       }else{
-        setCoordinates({ lat: 43.2141, lng: 27.9147 });
+        setCoordinates({ lat: 43.212369565056974, lng: 27.910891777045777 });
       }
       const filteredProperties = properties.filter((property) => {
         return (
@@ -133,7 +133,7 @@ const PropertiesForm = () => {
           ))}
         </div>
         <div className="all-properties-map">
-          <GoogleMap coordinates ={coordinates} properties={filteredProperties} />
+          <GoogleMap coordinates ={coordinates}/>
         </div> 
       </div>
     </div>
