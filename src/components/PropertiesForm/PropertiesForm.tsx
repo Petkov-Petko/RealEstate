@@ -102,7 +102,7 @@ const PropertiesForm = () => {
         <div className="all-properties">
           {filteredProperties.length === 0 && (<div>No properties found</div>)}
           {filteredProperties.map((property, index) => (
-            <PropertyStyle propertyKey={index} property={property} />
+            <PropertyStyle key={index} property={property} />
           ))}
         </div>
         <div className="all-properties-map">
