@@ -1,8 +1,5 @@
 import "./Map.css";
-import {
-  APIProvider,
-  Map,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import Markers from "./Markers";
 import { useEffect, useState } from "react";
 interface MapProps {
@@ -10,7 +7,10 @@ interface MapProps {
 }
 
 const GoogleMap = (props: MapProps) => {
-  const [cityCoordinates, setCityCoordinates] = useState({ lat: 43.2141, lng: 27.9147 });
+  const [cityCoordinates, setCityCoordinates] = useState({
+    lat: 43.2141,
+    lng: 27.9147,
+  });
 
   useEffect(() => {
     if (props.coordinates) {
@@ -18,21 +18,22 @@ const GoogleMap = (props: MapProps) => {
     }
     // console.log("props.coordinates", props.coordinates);
     // console.log("cityCoordinates", cityCoordinates);
-    
   }, [props.coordinates]);
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_KEY}>
-      <div className="mapContainerStyle">
-        <Map
-          defaultZoom={12}
-          //! To fix changing the city on the map depending on filters.
-          // center={cityCoordinates} 
-          defaultCenter={cityCoordinates}
-          mapId={import.meta.env.VITE_GOOGLE_ID}
-        >
-          <Markers />
-        </Map>
+      <div className="rounded-3xl overflow-hidden">
+        <div className="w-[500px] h-[700px]">
+          <Map
+            defaultZoom={12}
+            //! To fix changing the city on the map depending on filters.
+            // center={cityCoordinates}
+            defaultCenter={cityCoordinates}
+            mapId={import.meta.env.VITE_GOOGLE_ID}
+          >
+            <Markers />
+          </Map>
+        </div>
       </div>
     </APIProvider>
   );
