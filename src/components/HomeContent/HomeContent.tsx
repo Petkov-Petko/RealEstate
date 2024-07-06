@@ -7,6 +7,8 @@ import PropertyStyle from "../Property/Property";
 
 const HomeContent = () => {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [popularProperty, setPopularProperty] = useState<Property | null>(null);
+  const [popularPropertyPhoto, setPopularPropertyPhoto] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -19,6 +21,8 @@ const HomeContent = () => {
             propertiesList.push(property);
           });
           setProperties(propertiesList);
+          setPopularProperty(propertiesList[0]);
+          setPopularPropertyPhoto(propertiesList[0].photos[0]);
         }
       } catch (error) {
         console.error("Failed to fetch properties:", error);
@@ -26,7 +30,31 @@ const HomeContent = () => {
     };
 
     fetchProperties();
-  },[]);
+    console.log(popularProperty);
+    
+  }, []);
+
+  const nextPhoto = () => {
+    const currentPhotoIndex = popularProperty?.photos.indexOf(popularPropertyPhoto ?? "");
+    let nextPhotoIndex;
+    if(popularProperty && currentPhotoIndex === popularProperty?.photos.length - 1){
+        nextPhotoIndex = 0;
+    }else{
+        nextPhotoIndex = currentPhotoIndex ? currentPhotoIndex + 1 : 1;
+    }
+    setPopularPropertyPhoto(popularProperty?.photos[nextPhotoIndex] ?? null);
+  };
+
+  const prevPhoto = () => {
+    const currentPhotoIndex = popularProperty?.photos.indexOf(popularPropertyPhoto ?? "");
+    let prevPhotoIndex;
+    if(currentPhotoIndex === 0) {
+        prevPhotoIndex = (popularProperty?.photos.length ?? 0) - 1;
+    }else{
+        prevPhotoIndex = currentPhotoIndex ? currentPhotoIndex - 1 : 1;
+    }
+    setPopularPropertyPhoto(popularProperty?.photos[prevPhotoIndex] ?? null);
+  };
 
   return (
     <div>
@@ -45,35 +73,35 @@ const HomeContent = () => {
         <h1 className="text-center text-4xl font-black mt-11">Top Pick</h1>
         <div className="home_property">
           <div className="relative">
-            <img src={assets.home_top} alt="first property" />
+            <img src={popularPropertyPhoto ?? popularProperty?.photos[0]} alt="first property" />
             <div className="arrows">
-              <i className="fa-solid fa-chevron-left fa-lg"></i>
-              <i className="fa-solid fa-chevron-right fa-lg"></i>
+              <i onClick={prevPhoto} className="fa-solid fa-chevron-left fa-lg"></i>
+              <i onClick={nextPhoto} className="fa-solid fa-chevron-right fa-lg"></i>
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <h3>Apartment 1</h3>
-            <p className="font-bold text-lg">$231333</p>
-            <p>Varna Evlogo Georgiev 14</p>
+            <h3>{popularProperty?.name}</h3>
+            <p className="font-bold text-lg">{popularProperty?.price}</p>
+            <p>{popularProperty?.street}</p>
             <div className="flex gap-2">
-              <p>80 m2</p>
+              <p>{popularProperty?.square} m2</p>
               <p>
-                <i className="fa-solid fa-door-open fa-lg pr-1"></i>2 Rooms
+                <i className="fa-solid fa-door-open fa-lg pr-1"></i>{popularProperty?.rooms} Rooms
               </p>
               <p>
-                <i className="fa-solid fa-bath fa-lg pr-1"></i>2 Bathrooms
+                <i className="fa-solid fa-bath fa-lg pr-1"></i>{popularProperty?.baths} Bathrooms
               </p>
             </div>
-            <p>some description here</p>
+            <p>{popularProperty?.description}</p>
           </div>
         </div>
         <div>
-            <h1 className="text-center text-4xl font-black mt-11">Popular</h1>
-            <div className="popular-properties">
-                {properties.slice(0, 6).map((property, index) => (
-                    <PropertyStyle property={property} propertyKey={index} />
-                ))}
-            </div>
+          <h1 className="text-center text-4xl font-black mt-11">Popular</h1>
+          <div className="popular-properties">
+            {properties.slice(0, 6).map((property, index) => (
+              <PropertyStyle property={property} key={index} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
