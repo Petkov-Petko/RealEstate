@@ -1,12 +1,11 @@
 import "./Property.css"
 import { Property } from "../../types/types";
 
-const PropertyStyle = ({property, propertyKey}: {property: Property, propertyKey: number}) => {
-    console.log();
+const PropertyStyle = ({property}: {property: Property}) => {
     
   return (
     <div>
-      <div key={propertyKey} className="property">
+      <div  className="property">
               <div>
                 <img src={property.photos[0]} alt="property" />
               </div>
