@@ -19,7 +19,7 @@ const PropertyStyle = ({property, propertyKey}: {property: Property, propertyKey
                   )}
                   {property.type}
                 </p>
-                <p>{property.square}squares</p>
+                <p>{property.square}m2</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="property-title">{property.name}</p>
@@ -27,11 +27,11 @@ const PropertyStyle = ({property, propertyKey}: {property: Property, propertyKey
               </div>
               <div className="flex justify-between items-center">
                 <p>{property.city}</p>
-                <p>{property.street}</p>
+                <p><i className="fa-solid fa-location-dot fa-lg pr-1"></i>{property.street}</p>
               </div>
               <div className="flex gap-4 items-center">
-                <p>{property.rooms}rooms</p>
-                <p>{property.baths}baths</p>
+                <p><i className="fa-solid fa-door-open fa-lg pr-1"></i>{property.rooms} Rooms</p>
+                <p><i className="fa-solid fa-bath fa-lg pr-1"></i>{property.baths} baths</p>
               </div>
             </div>
     </div>
