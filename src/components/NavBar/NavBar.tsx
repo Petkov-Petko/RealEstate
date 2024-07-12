@@ -24,7 +24,7 @@ const NavBar = () => {
           </li>
        
           <li>
-            <a href="/sell">Contact</a>
+            <a href="/contacts">Contact</a>
           </li>
         </ul>
       </div>
