@@ -8,11 +8,17 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import Admin from "./pages/Admin/Admin";
 
 import Properties from "./pages/Properties/Properties";
+import Contacts from "./pages/Contacts/Contacts";
 
 export const router = createBrowserRouter([
   {
     element: <ProtectedRoutes />,
     children: [
+      {
+        path: "/contacts",
+        element: <Contacts />,
+        errorElement: <Error />,
+      },
       {
         path: "/home",
         element: <Home />,
