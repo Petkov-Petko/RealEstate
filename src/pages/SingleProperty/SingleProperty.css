@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    align-items: center;
+    background-color: rgba(235, 234, 233, 0.782);
+    width: 800px;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 5px 31px;
 }
 
-.single_property_photos {
-    display: flex;
-    gap: 11px;
-}
 
 .left_photo img {
     width: 500px;
@@ -63,4 +63,20 @@
     align-items: center;
     justify-content: center;
    
+}
+
+.single_property_details{
+    display: flex;
+    flex-direction: column;
+}
+
+#single_property_price{
+    color: #008080;
+    font-weight: 600;
+}
+
+.single_property_ul li{
+    background-color: #008080b3;
+    border-radius: 15px;
+    padding: 7px 11px;
 }
