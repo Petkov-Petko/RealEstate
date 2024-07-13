@@ -10,9 +10,9 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between items-center mx-4 my-4">
+    <div className="mx-5 my-4 nav_bar_container">
       <div>
-        <img src={assets.logo} alt="user" className="w-30 h-16" />
+        <img src={assets.logo} alt="user" className="w-30 h-12" />
       </div>
       <div>
         <ul className="flex gap-20 text-lg">
@@ -22,34 +22,37 @@ const NavBar = () => {
           <li>
             <a href="/properties">Properties</a>
           </li>
-       
           <li>
             <a href="/contacts">Contact</a>
           </li>
+          <li>
+            <a href="/aboutUs">About Us</a>
+          </li>
         </ul>
       </div>
-      <div className="group">
-        <i className="fa-solid fa-magnifying-glass fa-lg icon"></i>
-        <input placeholder="Search" type="search" className="input-search" />
-      </div>
       <div className="flex items-center gap-4">
-        <img className="w-20 h-16 rounded-full" src={assets.logo}></img>
-        <p>{user?.displayName}</p>
+        <i className="fa-regular fa-user fa-lg"></i>
+        <p id="user_name">{user?.displayName}</p>
         <i
           onClick={() => setShowOptions(!showOptions)}
-          className="fa-solid fa-chevron-down fa-lg relative"
+          className="fa-solid fa-chevron-down fa-lg relative cursor-pointer"
         ></i>
-      </div>
-      <div>
-        {showOptions && (
-          <div className="options-menu">
-            <button className="value">Public profile</button>
-            <button className="value">Account</button>
-            <button className="value">Appearance</button>
-            <button onClick={()=> navigate("/admin")} className="value">Admin</button>
-            <button onClick={logOut} className="value">Log Out</button>
-          </div>
-        )}
+        <div>
+          {showOptions && (
+            <div className="options-menu">
+              <button onClick={() => navigate("/home")} className="value mobile">Home</button>
+              <button onClick={() => navigate("/properties")} className="value mobile">Properties</button>
+              <button onClick={() => navigate("/contacts")} className="value mobile">Contacts</button>
+              <button className="value">Settings</button>
+              <button onClick={() => navigate("/admin")} className="value">
+                Admin
+              </button>
+              <button onClick={logOut} className="value">
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
