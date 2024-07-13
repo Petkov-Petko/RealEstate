@@ -20,19 +20,20 @@ const PropertyStyle = ({property}: {property: Property}) => {
                   )}
                   {property.type}
                 </p>
-                <p>{property.square}m2</p>
+                <p>stars</p>
               </div>
               <div className="flex justify-between items-center">
                 <p onClick={()=> navigate(`/properties/${property.id}`)} className="property-title">{property.name}</p>
-                <p className="font-bold">${property.price}</p>
+                <p className="font-bold">${property.price} {property?.deal === "rent" ? "/ month" : "/ buy"}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p>{property.city}</p>
                 <p><i className="fa-solid fa-location-dot fa-lg pr-1"></i>{property.street}</p>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-3 items-center mt-1">
                 <p><i className="fa-solid fa-door-open fa-lg pr-1"></i>{property.rooms} Rooms</p>
                 <p><i className="fa-solid fa-bath fa-lg pr-1"></i>{property.baths} baths</p>
+                <p><i className="fa-solid fa-expand fa-lg pr-1"></i>{property.square}m2</p>
               </div>
             </div>
     </div>
