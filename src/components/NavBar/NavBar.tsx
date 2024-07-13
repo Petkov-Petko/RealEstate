@@ -35,7 +35,7 @@ const NavBar = () => {
         <p id="user_name">{user?.displayName}</p>
         <i
           onClick={() => setShowOptions(!showOptions)}
-          className="fa-solid fa-chevron-down fa-lg relative cursor-pointer"
+          className="fa-solid fa-chevron-down fa-lg cursor-pointer"
         ></i>
         <div>
           {showOptions && (
