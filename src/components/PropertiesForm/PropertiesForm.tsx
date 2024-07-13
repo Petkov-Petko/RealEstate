@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Property } from "../../types/types";
 import GoogleMap from "../Map/Map";
 import PropertyStyle from "../Property/Property";
+import { updateProperty } from "../../service/db-service";
 
 const PropertiesForm = () => {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -27,6 +28,7 @@ const PropertiesForm = () => {
             const key = snapshot.key;
             property.id = key;
             propertiesList.push(property);
+            updateProperty(key, property);
           });
           setProperties(propertiesList);
           setFilteredProperties(propertiesList);
