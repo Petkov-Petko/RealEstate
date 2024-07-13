@@ -88,7 +88,7 @@ const SingleProperty = () => {
               {property?.street}, {property?.city}
             </p>
             <div>
-              <i className="fa-regular fa-star fa-lg pr-3"></i>
+            <i className="fa-regular fa-heart fa-lg pr-3"></i>
               <i className="fa-regular fa-bookmark fa-lg"></i>
             </div>
           </div>
