@@ -54,3 +54,12 @@ export const updateProperty = async (propertyId: string, property: Property) => 
     console.error("Error updating property: ", error);
   }
 }
+
+export const getProperty = async (propertyId: string) => {
+  try {
+    const snapshot = await get(ref(database, `properties/${propertyId}`));
+    return snapshot;
+  } catch (error) {
+    console.error("Error getting property: ", error);
+  }
+}
