@@ -1,8 +1,10 @@
 import "./Property.css"
 import { Property } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 
 const PropertyStyle = ({property}: {property: Property}) => {
-    
+  const navigate = useNavigate();
+
   return (
     <div>
       <div  className="property">
@@ -21,7 +23,7 @@ const PropertyStyle = ({property}: {property: Property}) => {
                 <p>{property.square}m2</p>
               </div>
               <div className="flex justify-between items-center">
-                <p className="property-title">{property.name}</p>
+                <p onClick={()=> navigate(`/properties/${property.id}`)} className="property-title">{property.name}</p>
                 <p className="font-bold">${property.price}</p>
               </div>
               <div className="flex justify-between items-center">
