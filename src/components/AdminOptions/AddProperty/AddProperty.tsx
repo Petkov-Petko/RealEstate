@@ -25,6 +25,7 @@ const AddProperty = () => {
     photos: [],
     lat: 0,
     lng: 0,
+    id: "",
   });
 
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,10 +49,15 @@ const AddProperty = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+
     try {
       setLoading(true);
 
-      
+      if(!validateProperty(property)){
+        setLoading(false);
+        return;
+      }
+
       const id: string = (await addProperty(property)) as string;
       await addPhotosToProperty(id);
       const photosUrls = await getFiles(id);
@@ -63,8 +69,8 @@ const AddProperty = () => {
         )}&key=${import.meta.env.VITE_GOOGLE_KEY}`
       );
       const data = await response.json();
-      const location= await data.results[0].geometry.location;
-      
+      const location = await data.results[0].geometry.location;
+
       await updateProperty(id, {
         ...property,
         photos: photosUrls,
@@ -78,6 +84,57 @@ const AddProperty = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const validateProperty = (property: Property) => {
+    if(property.name === ""){
+      setErrorMessage("Name is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.description === ""){
+      setErrorMessage("Description is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.square === null){
+      setErrorMessage("Square is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.price === null){
+      setErrorMessage("Price is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.rooms === null){
+      setErrorMessage("Rooms is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.baths === null){
+      setErrorMessage("Baths is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(property.street === ""){
+      setErrorMessage("Street is required");
+      setSuccessMessage("");
+
+      return false;
+    }
+    if(photos.length < 4){
+      setErrorMessage("At least 4 photos are required");
+      setSuccessMessage("");
+      return false;
+    }
+    return true;
   };
 
   return (
