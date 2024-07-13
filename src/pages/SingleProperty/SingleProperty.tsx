@@ -4,12 +4,17 @@ import NavBar from "../../components/NavBar/NavBar";
 import { getProperty } from "../../service/db-service";
 import { useState, useEffect } from "react";
 import { Property } from "../../types/types";
+import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 
 const SingleProperty = () => {
   const { id = "" } = useParams();
   const [property, setProperty] = useState<Property | null>(null);
   const [photos, setPhotos] = useState([]);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [addressCoordinates, setAddressCoordinates] = useState({
+    lat: 43.2141,
+    lng: 27.9147,
+  });
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -18,6 +23,10 @@ const SingleProperty = () => {
         if (snapshot && snapshot.exists()) {
           setProperty(snapshot.val());
           setPhotos(snapshot.val().photos);
+          setAddressCoordinates({
+            lat: snapshot.val().lat,
+            lng: snapshot.val().lng,
+          });
         }
       } catch (error) {
         console.error("Failed to fetch property:", error);
@@ -44,21 +53,24 @@ const SingleProperty = () => {
             </div>
           </div>
         </div>
-        {showAllPhotos && (
-          <div className="single_property_all_photos_container">
-            <div
-              onClick={() => setShowAllPhotos(false)}
-              className="flex justify-end mr-10 text-2xl mt-3 cursor-pointer"
-            >
-              <p>X</p>
+        <div>
+          {showAllPhotos && (
+            <div className="single_property_all_photos_container">
+              <div
+                onClick={() => setShowAllPhotos(false)}
+                className="flex justify-end mr-10 text-2xl mt-3 cursor-pointer"
+              >
+                <p>X</p>
+              </div>
+              <div className="single_property_all_photos">
+                {photos.map((photo, index) => {
+                  return <img key={index} src={photo} alt="property" />;
+                })}
+              </div>
             </div>
-            <div className="single_property_all_photos">
-              {photos.map((photo, index) => {
-                return <img key={index} src={photo} alt="property" />;
-              })}
-            </div>
-          </div>
-        )}
+          )}
+        </div>
+
         <div className="flex flex-col mt-3 gap-5">
           <div className="flex justify-between items-center">
             <h1 className="text-4xl">{property?.name}</h1>
@@ -104,6 +116,24 @@ const SingleProperty = () => {
             <p className="text-2xl  pb-2">Properties details</p>
             <p className="opacity-80 text-lg">{property?.description}</p>
           </div>
+        </div>
+        <div>
+          <APIProvider apiKey={import.meta.env.VITE_GOOGLE_KEY}>
+            <div className="rounded-3xl overflow-hidden pt-5">
+              <div className="w-[100%] h-[500px]">
+                <Map
+                  defaultZoom={15}
+                  center={addressCoordinates}
+                  defaultCenter={addressCoordinates}
+                  mapId={import.meta.env.VITE_GOOGLE_ID}
+                >
+                  <AdvancedMarker
+                    position={addressCoordinates}
+                  ></AdvancedMarker>
+                </Map>
+              </div>
+            </div>
+          </APIProvider>
         </div>
       </div>
     </div>

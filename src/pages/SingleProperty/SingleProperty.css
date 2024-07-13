@@ -46,8 +46,10 @@
 
 .single_property_all_photos_container{
     position: absolute;
+    top: 10%;
+    left: 0;
     width: 100%;
-    height: 600px;
+    height: 650px;
     background-color: rgb(192, 192, 192);
     overflow: hidden;
     overflow-y: scroll;
