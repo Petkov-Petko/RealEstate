@@ -42,10 +42,15 @@ const Contacts = () => {
         </div>
         <div className="contacts_right_side">
           <form
-            className="form"
+            className="form_contacts"
             action="https://api.web3forms.com/submit"
             method="POST"
           >
+            <input
+              type="hidden"
+              name="access_key"
+              value={import.meta.env.VITE_WEB3_KEY}
+            ></input>
             <div className="flex">
               <label>
                 <input required type="text" className="input" name="name" />
@@ -53,7 +58,7 @@ const Contacts = () => {
               </label>
 
               <label>
-                <input required type="text" className="input" />
+                <input required type="text" className="input" name="second name" />
                 <span>last name</span>
               </label>
             </div>
@@ -64,7 +69,7 @@ const Contacts = () => {
             </label>
 
             <label>
-              <input required type="tel" className="input" />
+              <input required type="tel" className="input" name="number" />
               <span>contact number</span>
             </label>
             <label>
