@@ -9,11 +9,17 @@ import Admin from "./pages/Admin/Admin";
 
 import Properties from "./pages/Properties/Properties";
 import Contacts from "./pages/Contacts/Contacts";
+import SingleProperty from "./pages/SingleProperty/SingleProperty";
 
 export const router = createBrowserRouter([
   {
     element: <ProtectedRoutes />,
     children: [
+      {
+        path: "/properties/:id",
+        element: <SingleProperty />,
+        errorElement: <Error />,
+      },
       {
         path: "/contacts",
         element: <Contacts />,
