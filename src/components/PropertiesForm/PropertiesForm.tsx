@@ -24,6 +24,8 @@ const PropertiesForm = () => {
           const propertiesList: Property[] = [];
           propertiesFromDb.forEach((snapshot) => {
             const property = snapshot.val();
+            const key = snapshot.key;
+            property.id = key;
             propertiesList.push(property);
           });
           setProperties(propertiesList);
