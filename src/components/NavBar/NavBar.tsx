@@ -43,6 +43,7 @@ const NavBar = () => {
               <button onClick={() => navigate("/home")} className="value mobile">Home</button>
               <button onClick={() => navigate("/properties")} className="value mobile">Properties</button>
               <button onClick={() => navigate("/contacts")} className="value mobile">Contacts</button>
+              <button onClick={() => navigate("/aboutUs")} className="value mobile">About Us</button>
               <button className="value">Settings</button>
               <button onClick={() => navigate("/admin")} className="value">
                 Admin
