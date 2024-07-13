@@ -25,4 +25,5 @@ background: linear-gradient(0deg, rgba(147, 147, 147, 0.742) 5%, rgba(240,240,24
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: pointer;
 }
