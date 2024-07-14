@@ -22,3 +22,13 @@
 }
 
 
+@media screen and (max-width: 680px){
+    .property-filters{
+        width: 105px;
+    }
+    .propertyFilter{
+        display: flex;
+        gap: 10px;
+        margin: 30px 30px;
+    }
+}
