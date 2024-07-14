@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 5px;
     background: rgb(147,147,147);
-    background: linear-gradient(0deg, rgba(147, 147, 147, 0.742) 5%, rgba(240,240,240,1) 47%, rgba(249,249,249,1) 80%);
+    background: linear-gradient(0deg, rgba(224, 223, 223, 0.742) 5%, rgba(240,240,240,1) 47%, rgba(249,249,249,1) 80%);
     padding: 10px;
     border-radius: 15px;
     width: 290px;
