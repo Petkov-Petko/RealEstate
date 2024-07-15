@@ -1,10 +1,14 @@
-import NavBar from "../../components/NavBar/NavBar";
 import "./Contacts.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
+import NavBar from "../../components/NavBar/NavBar";
 
 const Contacts = () => {
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
   return (
     <div>
-      <NavBar />
+      {user && <NavBar />}
       <div className="contacts">
         <div className="contacts_left_side">
           <div className="flex flex-col gap-6">
@@ -58,7 +62,12 @@ const Contacts = () => {
               </label>
 
               <label>
-                <input required type="text" className="input" name="second name" />
+                <input
+                  required
+                  type="text"
+                  className="input"
+                  name="second name"
+                />
                 <span>last name</span>
               </label>
             </div>
