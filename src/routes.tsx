@@ -6,7 +6,6 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Admin from "./pages/Admin/Admin";
-
 import Properties from "./pages/Properties/Properties";
 import Contacts from "./pages/Contacts/Contacts";
 import SingleProperty from "./pages/SingleProperty/SingleProperty";
@@ -18,11 +17,6 @@ export const router = createBrowserRouter([
       {
         path: "/properties/:id",
         element: <SingleProperty />,
-        errorElement: <Error />,
-      },
-      {
-        path: "/contacts",
-        element: <Contacts />,
         errorElement: <Error />,
       },
       {
@@ -39,8 +33,13 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <Admin />,
         errorElement: <Error />,
-      }
+      },
     ],
+  },
+  {
+    path: "/contacts",
+    element: <Contacts />,
+    errorElement: <Error />,
   },
   {
     path: "/",
