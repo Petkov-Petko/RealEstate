@@ -1,6 +1,5 @@
 import "./Admin.css";
 import AddProperty from "../../components/AdminOptions/AddProperty/AddProperty";
-import NavBar from "../../components/NavBar/NavBar";
 import { useState } from "react";
 
 const Admin = () => {
@@ -12,7 +11,6 @@ const Admin = () => {
  
   return (
     <div>
-      <NavBar />
       <div className="radio-inputs">
         <label className="radio">
           <input

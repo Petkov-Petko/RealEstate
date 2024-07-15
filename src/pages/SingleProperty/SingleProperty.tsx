@@ -1,6 +1,5 @@
 import "./SingleProperty.css";
 import { useParams } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
 import { getProperty } from "../../service/db-service";
 import { useState, useEffect } from "react";
 import { Property } from "../../types/types";
@@ -38,7 +37,6 @@ const SingleProperty = () => {
 
   return (
     <div>
-      <NavBar />
       <div className="single_property">
         <div className="flex gap-3 mt-3 items-center justify-center">
           <div className="left_photo">
