@@ -25,16 +25,24 @@ const Footer = () => {
         <div>
           <h2 className="pb-5">USEFUL LINKS</h2>
           <ul>
-              <li><a href="aboutUs">About Us</a></li>
-              <li><a href="contacts">Contact Us</a></li>
-              <li><a href="terms">Terms and Conditions</a></li>
+            <li>
+              <a href="aboutUs">About Us</a>
+            </li>
+            <li>
+              <a href="contacts">Contact Us</a>
+            </li>
+            <li>
+              <a href="terms">Terms and Conditions</a>
+            </li>
           </ul>
         </div>
         <div className="footer_third_col">
           <h2 className="pb-5">NEWSLETTER</h2>
           <p>Sign up for exclusive offers and news</p>
-          <input type="text" placeholder="Enter your email" />
-          <i className="fa-solid fa-arrow-right fa-sm"></i>
+          <div className="input_wrapper">
+            <input type="text" placeholder="Enter your email" />
+            <i className="fa-solid fa-arrow-right fa-sm"></i>
+          </div>
         </div>
       </div>
     </footer>
