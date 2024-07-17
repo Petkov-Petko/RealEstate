@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer>
       <div className="footer_top">
-        <div>
+        <div className="footer_first_col">
           <img className="w-52 " src={assets.logo} alt="logo" />
 
           <div className="socials-container">
@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h2>USEFUL LINKS</h2>
+          <h2 className="pb-5">USEFUL LINKS</h2>
           <ul>
               <li><a href="aboutUs">About Us</a></li>
               <li><a href="contacts">Contact Us</a></li>
@@ -31,9 +31,10 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer_third_col">
-          <h2>NEWSLETTER</h2>
+          <h2 className="pb-5">NEWSLETTER</h2>
           <p>Sign up for exclusive offers and news</p>
           <input type="text" placeholder="Enter your email" />
+          <i className="fa-solid fa-arrow-right fa-sm"></i>
         </div>
       </div>
     </footer>
