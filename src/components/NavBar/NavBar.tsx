@@ -10,7 +10,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-5 my-4 nav_bar_container">
+    <div className="mx-5 my-4 nav_bar_container flex justify-between items-center">
       <div>
         <img src={assets.logo} alt="user" className="w-30 h-12" />
       </div>

@@ -2,7 +2,7 @@ import "./Loading.css";
 
 const Loading = () => {
   return (
-    <div className="loader_page">
+    <div className="loader_page h-screen">
       <div className="loader">
         <span className="l">L</span>
         <span className="o">o</span>
