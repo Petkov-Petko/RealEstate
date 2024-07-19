@@ -36,7 +36,12 @@ footer {
 }
 
 .fa-arrow-right:hover {
-    color: #f09433;
+    color: #008080;
+}
+
+footer a:hover{
+    color: #008080;
+
 }
 
 /* social icons */
@@ -101,4 +106,20 @@ footer {
     color: white;
     height: 20px;
     margin-top: 21px;
+}
+
+@media screen and (max-width: 700px) {
+
+    .footer_top {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin-bottom: 35px;
+    }
+
+    .footer_first_col{
+        grid-column: 1 / -1;
+    }
+    .footer_first_col img{
+        display: none;
+    }
 }
