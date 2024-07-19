@@ -45,6 +45,24 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <div className="footer_bottom flex justify-between">
+        <div>
+          <p>&copy; Estato 2024 All Rights Reserved</p>
+        </div>
+        <div>
+          <ul  className="flex gap-4">
+            <li>
+              <a href="/properties">BUY</a>
+            </li>
+            <li>
+              <a href="/properties">RENT</a>
+            </li>
+            <li>
+              <a href="/properties">SAVED</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </footer>
   );
 };
