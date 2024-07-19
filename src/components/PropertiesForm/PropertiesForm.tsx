@@ -14,8 +14,10 @@ const PropertiesForm = () => {
     city: "Varna",
     deal: "buy",
   });
-  const [coordinates, setCoordinates] = useState({ lat: 43.2141, lng: 27.9147 } as { lat: number, lng: number } | null);
-
+  const [coordinates, setCoordinates] = useState({
+    lat: 43.2141,
+    lng: 27.9147,
+  } as { lat: number; lng: number } | null);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -41,25 +43,23 @@ const PropertiesForm = () => {
     fetchProperties();
   }, []);
 
-
-
-    const filterProperties = () => {
-      console.log(filters);
-      if (filters.city === "Sofia") {
-        setCoordinates({ lat: 42.6977, lng: 23.3219 });
-      }else{
-        setCoordinates({ lat: 43.212369565056974, lng: 27.910891777045777 });
-      }
-      const filteredProperties = properties.filter((property) => {
-        return (
-          (filters.homeType === "All types" ||
-            property.type === filters.homeType) &&
-          (filters.city === "all" || property.city === filters.city) &&
-          (filters.deal === "buy" || property.deal === filters.deal)
-        );
-      });
-      setFilteredProperties(filteredProperties);
-    };
+  const filterProperties = () => {
+    console.log(filters);
+    if (filters.city === "Sofia") {
+      setCoordinates({ lat: 42.6977, lng: 23.3219 });
+    } else {
+      setCoordinates({ lat: 43.212369565056974, lng: 27.910891777045777 });
+    }
+    const filteredProperties = properties.filter((property) => {
+      return (
+        (filters.homeType === "All types" ||
+          property.type === filters.homeType) &&
+        (filters.city === "all" || property.city === filters.city) &&
+        (filters.deal === "buy" || property.deal === filters.deal)
+      );
+    });
+    setFilteredProperties(filteredProperties);
+  };
 
   return (
     <div>
@@ -86,10 +86,13 @@ const PropertiesForm = () => {
           <option value="Sofia">Sofia</option>
           <option value="all">All</option>
         </select>
-        <select 
+        <select
           value={filters.deal}
           onChange={(e) => setFilters({ ...filters, deal: e.target.value })}
-        name="deal" id="deal" className="property-filters">
+          name="deal"
+          id="deal"
+          className="property-filters"
+        >
           <option value="buy">Buy</option>
           <option value="rent">Rent</option>
         </select>
@@ -102,16 +105,16 @@ const PropertiesForm = () => {
           <i className="fa-solid fa-filter fa-lg"></i>Filter
         </button>
       </div>
-      <div className="flex mx-4 gap-3">
+      <div className="properties_container">
+        <div className="all-properties-map">
+          <GoogleMap coordinates={coordinates} />
+        </div>
         <div className="all-properties">
-          {filteredProperties.length === 0 && (<div>No properties found</div>)}
+          {filteredProperties.length === 0 && <div>No properties found</div>}
           {filteredProperties.map((property, index) => (
             <PropertyStyle key={index} property={property} />
           ))}
         </div>
-        <div className="all-properties-map">
-          <GoogleMap coordinates ={coordinates}/>
-        </div> 
       </div>
     </div>
   );

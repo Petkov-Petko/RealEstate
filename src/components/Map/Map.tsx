@@ -23,7 +23,7 @@ const GoogleMap = (props: MapProps) => {
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_KEY}>
       <div className="rounded-3xl overflow-hidden">
-        <div className="w-[500px] h-[700px]">
+        <div className="map_container">
           <Map
             defaultZoom={12}
             //! To fix changing the city on the map depending on filters.
