@@ -9,6 +9,7 @@ import Admin from "./pages/Admin/Admin";
 import Properties from "./pages/Properties/Properties";
 import Contacts from "./pages/Contacts/Contacts";
 import SingleProperty from "./pages/SingleProperty/SingleProperty";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
     ],
+  },
+  {
+    path: "/about-us",
+    element: <AboutUs />,
+    errorElement: <Error />,
   },
   {
     path: "/contacts",
