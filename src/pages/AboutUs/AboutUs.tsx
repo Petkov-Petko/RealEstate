@@ -51,10 +51,34 @@ const AboutUs = () => {
           </div>
         </div>
         <div className="about_us_bottom">
-          <h3>What Our Customer Say About Us</h3>
-          <div>
-            <div>
-              <p>Amazing service, worth the money. They help me to sell my </p>
+          <h3 className="text-2xl">What Our Customer Say About Us</h3>
+          <div className="flex flex-col gap-5">
+            <div className="customer_comment">
+              <p className="opacity-75 pt-4">
+                Amazing service, worth the money. They help me to sell my{" "}
+              </p>
+              <div className="flex items-center gap-2 flex-row">
+                <img src={assets.home_top} alt="customer photo" />
+                <p>Jon Doe</p>
+              </div>
+            </div>
+            <div className="customer_comment ml-12">
+              <p className="opacity-75 pt-4">
+                Amazing service, worth the money. They help me to sell my{" "}
+              </p>
+              <div className="flex items-center gap-2 flex-row">
+                <img src={assets.home_top} alt="customer photo" />
+                <p>Jon Doe</p>
+              </div>
+            </div>
+            <div className="customer_comment ml-24">
+              <p className="opacity-75 pt-4">
+                Amazing service, worth the money. They help me to sell my{" "}
+              </p>
+              <div className="flex items-center gap-2 flex-row">
+                <img src={assets.home_top} alt="customer photo" />
+                <p>Jon Doe</p>
+              </div>
             </div>
           </div>
         </div>
