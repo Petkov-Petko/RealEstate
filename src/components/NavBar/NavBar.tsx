@@ -31,7 +31,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="flex items-center gap-4">
-        <i className="fa-regular fa-user fa-lg"></i>
+        <i onClick={()=> navigate("/profile")} className="fa-regular fa-user fa-lg cursor-pointer"></i>
         <p id="user_name">{user?.displayName}</p>
         <i
           onClick={() => setShowOptions(!showOptions)}
