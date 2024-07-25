@@ -17,10 +17,10 @@ const AboutUs = () => {
             <br />
             To Fid Your Home
           </h3>
-          <img src={assets.home_top} alt="" />
+          <img src={assets.about_us_1} alt="" />
         </div>
         <div className="about_us_middle">
-          <img className="w-96 h-96 float-left" src={assets.home_top}></img>
+          <img className="w-96 h-96 float-left" src={assets.about_us_2}></img>
           <div className="flex flex-col gap-5 pl-4">
             <h3 className="text-4xl">
               Our Reputation Is As Real As <br />
@@ -58,7 +58,7 @@ const AboutUs = () => {
                 Amazing service, worth the money. They help me to sell my{" "}
               </p>
               <div className="flex items-center gap-2 flex-row">
-                <img src={assets.home_top} alt="customer photo" />
+                <img src={assets.customer1} alt="customer photo" />
                 <p>Jon Doe</p>
               </div>
             </div>
@@ -67,7 +67,7 @@ const AboutUs = () => {
                 Amazing service, worth the money. They help me to sell my{" "}
               </p>
               <div className="flex items-center gap-2 flex-row">
-                <img src={assets.home_top} alt="customer photo" />
+                <img src={assets.customer2} alt="customer photo" />
                 <p>Jon Doe</p>
               </div>
             </div>
@@ -76,7 +76,7 @@ const AboutUs = () => {
                 Amazing service, worth the money. They help me to sell my{" "}
               </p>
               <div className="flex items-center gap-2 flex-row">
-                <img src={assets.home_top} alt="customer photo" />
+                <img src={assets.customer3} alt="customer photo" />
                 <p>Jon Doe</p>
               </div>
             </div>
