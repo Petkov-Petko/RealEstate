@@ -2,13 +2,14 @@ import "./Contacts.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import NavBar from "../../components/NavBar/NavBar";
+import NavBarPublic from "../../components/PublicPage/NavBarPublic/NavBarPublic";
 
 const Contacts = () => {
   const auth = getAuth();
   const [user] = useAuthState(auth);
   return (
     <div>
-      {user && <NavBar />}
+      {user ? <NavBar /> : <NavBarPublic />}
       <div className="contacts">
         <div className="contacts_left_side">
           <div className="flex flex-col gap-6">

@@ -3,13 +3,15 @@ import { assets } from "../../assets/assets";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import NavBar from "../../components/NavBar/NavBar";
+import NavBarPublic from "../../components/PublicPage/NavBarPublic/NavBarPublic";
+
 
 const AboutUs = () => {
   const auth = getAuth();
   const [user] = useAuthState(auth);
   return (
     <div>
-      {user && <NavBar />}
+      {user ? <NavBar /> : <NavBarPublic />}
       <div className="about_us_container">
         <div className="about_us_top">
           <h3>
