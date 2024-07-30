@@ -10,7 +10,7 @@ const NavBarPublic = () => {
       <div className="public-li-el">
         <ul className="flex flex-row gap-10 text-lg">
           <li>
-            <a href="/about">About</a>
+            <a href="/aboutUS">About</a>
           </li>
           <li>
             <a href="/contacts">Contact Us</a>
