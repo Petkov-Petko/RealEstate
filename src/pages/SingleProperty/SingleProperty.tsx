@@ -7,8 +7,6 @@ import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 import { updateProperty } from "../../service/db-service";
 import { useUserAuth } from "../../context/userAuthContext";
 
-
-
 const SingleProperty = () => {
   const { id = "" } = useParams();
   const [property, setProperty] = useState<Property | null>(null);
@@ -19,7 +17,6 @@ const SingleProperty = () => {
     lng: 27.9147,
   });
   const { user } = useUserAuth();
-
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -49,7 +46,9 @@ const SingleProperty = () => {
         await updateProperty(property.id, { ...property, likes: updatedLikes });
         setProperty({ ...property, likes: updatedLikes });
       } else {
-        const updatedLikes = [...likes, user.displayName].filter((like) => like !== null) as string[];
+        const updatedLikes = [...likes, user.displayName].filter(
+          (like) => like !== null
+        ) as string[];
         await updateProperty(property.id, { ...property, likes: updatedLikes });
         setProperty({ ...property, likes: updatedLikes });
       }
@@ -107,7 +106,19 @@ const SingleProperty = () => {
               {property?.street}, {property?.city}
             </p>
             <div>
-              <i onClick={likeOrDislike} className="fa-regular fa-heart fa-lg pr-3"></i>
+              {property?.likes?.includes(user?.displayName ?? "") ? (
+                <i
+                  onClick={likeOrDislike}
+                  className="fa-solid fa-heart fa-lg pr-3"
+                  style={{ color: "#e71818" }}
+                ></i>
+              ) : (
+                <i
+                  onClick={likeOrDislike}
+                  className="fa-regular fa-heart fa-lg pr-3"
+                ></i>
+              )}
+
               <i className="fa-regular fa-bookmark fa-lg"></i>
             </div>
           </div>
