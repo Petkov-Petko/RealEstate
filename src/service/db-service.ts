@@ -83,3 +83,27 @@ export const getProperty = async (propertyId: string) => {
   }
 };
 
+export const editCredential = async (user:string, credential:string, newCredential:string) => {
+  try {
+    return await update(ref(database, `users/${user}`), { [credential]: newCredential });
+  } catch (error) {
+    return error;
+  }
+}
+
+export const editUserDetails = async (user:string, userDetails: UserDetails) => {
+  try {
+    return await update(ref(database, `users/${user}`), userDetails);
+  } catch (error) {
+    return error;
+  }
+}
+
+export const getUser = async (username: string) => {
+  try {
+    const snapshot = await get(ref(database, `users/${username}`));
+    return snapshot;
+  } catch (error) {
+    console.error("Error getting user: ", error);
+  }
+}
