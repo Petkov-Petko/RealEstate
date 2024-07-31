@@ -3,7 +3,12 @@ import { assets } from "../../assets/assets";
 import { uploadUserPhoto, getUserPhoto } from "../../service/storage";
 import { useRef, useEffect, useState } from "react";
 import { useUserAuth } from "../../context/userAuthContext";
-import { getUser } from "../../service/db-service";
+import {
+  editCredential,
+  editUserDetails,
+  getUser,
+} from "../../service/db-service";
+import { UserDetails } from "../../types/types";
 
 const EditButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button onClick={onClick} className="edit_btn">
@@ -15,7 +20,16 @@ const Profile = () => {
   const [photoUrl, setPhotoUrl] = useState<string | null>();
   const { user } = useUserAuth();
   const fileInput = useRef<HTMLInputElement>(null);
-  const [userDetails, setUserDetails] = useState<any>({});
+  const [userDetails, setUserDetails] = useState<UserDetails>({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    country: "",
+    city: "",
+    photo: "",
+    username: "",
+  });
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -41,9 +55,12 @@ const Profile = () => {
   const updateStorageUrl = async () => {
     if (photoUrl) {
       try {
-        const file = await fetch(photoUrl).then(res => res.blob());
-        await uploadUserPhoto(user?.email ?? "", file);
+        const file = await fetch(photoUrl).then((res) => res.blob());
+        const fileToUpload = new File([file], "photo.jpg", { type: file.type });
+        await uploadUserPhoto(user?.email ?? "", fileToUpload);
         console.log("File uploaded successfully.");
+        const url = await getUserPhoto(user?.email ?? "");
+        await editCredential(user?.displayName ?? "", "photo", url);
       } catch (error) {
         console.error("Error uploading file:", error);
       }
@@ -51,6 +68,10 @@ const Profile = () => {
   };
   const handleImageClick = () => {
     fileInput.current?.click();
+  };
+
+  const updateUserInfo = async () => {
+    await editUserDetails(user?.displayName ?? "", userDetails);
   };
 
   return (
@@ -68,22 +89,21 @@ const Profile = () => {
           />
           <img
             onClick={handleImageClick}
-            src={photoUrl ? photoUrl : assets.user}
+            src={
+              photoUrl
+                ? photoUrl
+                : userDetails?.photo
+                ? userDetails.photo
+                : assets.user
+            }
             className="w-20 h-20 rounded-full"
             alt="User profile"
           />
           <div className="ml-4 flex flex-col">
             <h2 className="text-lg font-semibold">{user?.displayName}</h2>
-            <input
-              className="opacity-75"
-              type="text"
-              placeholder={
-                userDetails?.address ? userDetails?.address : "Provide address"
-              }
-            />
           </div>
         </div>
-        <EditButton onClick={updateStorageUrl}/>
+        <EditButton onClick={updateStorageUrl} />
       </div>
       <div className="profile_row flex flex-col gap-2">
         <h2 className="text-lg font-semibold pb-4">Personal Information</h2>
@@ -93,6 +113,9 @@ const Profile = () => {
               First Name
             </label>
             <input
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, first_name: e.target.value })
+              }
               className="input"
               type="text"
               id="first_name"
@@ -101,11 +124,15 @@ const Profile = () => {
               }
             />
           </div>
+
           <div className="flex flex-col">
             <label htmlFor="first_name" className="opacity-75">
               Last Name
             </label>
             <input
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, last_name: e.target.value })
+              }
               className="input"
               type="text"
               id="last_name"
@@ -120,7 +147,9 @@ const Profile = () => {
             <label htmlFor="email" className="opacity-75">
               Email
             </label>
-            <p className="aw">{user?.email}</p>
+            <p className="w-[174px] text-ellipsis overflow-hidden whitespace-nowrap">
+              {user?.email}
+            </p>
           </div>
           <div>
             <div className="flex flex-col">
@@ -128,6 +157,9 @@ const Profile = () => {
                 Phone
               </label>
               <input
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, phone: e.target.value })
+                }
                 className="input"
                 type="text"
                 id="phone"
@@ -136,36 +168,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <EditButton />
+        <EditButton onClick={updateUserInfo} />
       </div>
-      <div className="profile_row">
-        <h2 className="text-lg font-semibold pb-4">Change Password</h2>
-        <div className="flex">
-          <div className="flex flex-col">
-            <label htmlFor="password" className="opacity-75">
-              Current Password
-            </label>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              placeholder="********"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="new_password" className="opacity-75">
-              New Password
-            </label>
-            <input
-              className="input"
-              type="password"
-              id="new_password"
-              placeholder="********"
-            />
-          </div>
-        </div>
-        <EditButton />
-      </div>
+
       <div className="profile_row">
         <h2 className="text-lg font-semibold pb-4">Address</h2>
         <div className="flex">
@@ -174,6 +179,9 @@ const Profile = () => {
               Country
             </label>
             <input
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, country: e.target.value })
+              }
               className="input"
               type="text"
               placeholder={
@@ -187,6 +195,9 @@ const Profile = () => {
                 City
               </label>
               <input
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, city: e.target.value })
+                }
                 className="input"
                 type="text"
                 placeholder={userDetails?.city ? userDetails.city : "......"}
@@ -194,7 +205,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <EditButton />
+        <EditButton onClick={updateUserInfo} />
       </div>
       <div className="profile_row">
         <h2 className="text-lg font-semibold pb-4 text-red-600">
