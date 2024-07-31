@@ -26,3 +26,14 @@ export interface Property {
     id: string;
     likes: string[];
 }
+
+export interface UserDetails {
+    username: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    phone: string;
+    country: string;
+    city: string;
+    photo: string;
+}
