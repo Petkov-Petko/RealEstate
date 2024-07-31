@@ -26,6 +26,7 @@ const AddProperty = () => {
     lat: 0,
     lng: 0,
     id: "",
+    likes: [],
   });
 
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,11 +50,10 @@ const AddProperty = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-
     try {
       setLoading(true);
 
-      if(!validateProperty(property)){
+      if (!validateProperty(property)) {
         setLoading(false);
         return;
       }
@@ -87,49 +87,49 @@ const AddProperty = () => {
   };
 
   const validateProperty = (property: Property) => {
-    if(property.name === ""){
+    if (property.name === "") {
       setErrorMessage("Name is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.description === ""){
+    if (property.description === "") {
       setErrorMessage("Description is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.square === null){
+    if (property.square === null) {
       setErrorMessage("Square is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.price === null){
+    if (property.price === null) {
       setErrorMessage("Price is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.rooms === null){
+    if (property.rooms === null) {
       setErrorMessage("Rooms is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.baths === null){
+    if (property.baths === null) {
       setErrorMessage("Baths is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(property.street === ""){
+    if (property.street === "") {
       setErrorMessage("Street is required");
       setSuccessMessage("");
 
       return false;
     }
-    if(photos.length < 4){
+    if (photos.length < 4) {
       setErrorMessage("At least 4 photos are required");
       setSuccessMessage("");
       return false;
