@@ -11,15 +11,36 @@ export const uploadFile = async (
 };
 
 export const getFiles = async (propertyId: string): Promise<string[]> => {
-    try {
-      const photosRef = ref(storage, `properties/${propertyId}`);
-      const listResult = await listAll(photosRef);
-      console.log(listResult);
-      const urlPromises = listResult.items.map((itemRef) => getDownloadURL(itemRef));
-      const urls = await Promise.all(urlPromises);
-      return urls;
-    } catch (error) {
-      console.error("Error fetching photos: ", error);
-      throw error; 
-    }
-  };
+  try {
+    const photosRef = ref(storage, `properties/${propertyId}`);
+    const listResult = await listAll(photosRef);
+    console.log(listResult);
+    const urlPromises = listResult.items.map((itemRef) =>
+      getDownloadURL(itemRef)
+    );
+    const urls = await Promise.all(urlPromises);
+    return urls;
+  } catch (error) {
+    console.error("Error fetching photos: ", error);
+    throw error;
+  }
+};
+
+export const uploadUserPhoto = async (
+  userEmail: string,
+  file: File,
+) => {
+  const imageNameRef = ref(storage, `users/${userEmail}/photo`);
+  await uploadBytes(imageNameRef, file);
+};
+
+export const getUserPhoto = async (userEmail: string): Promise<string> => {
+  try {
+    const photoRef = ref(storage, `users/${userEmail}`);
+    const url = await getDownloadURL(photoRef);
+    return url;
+  } catch (error) {
+    console.error("Error fetching photo: ", error);
+    throw error;
+  }
+};
