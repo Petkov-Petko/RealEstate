@@ -24,4 +24,5 @@ export interface Property {
     lat: number,
     lng: number,
     id: string;
+    likes: string[];
 }
