@@ -4,6 +4,10 @@ import { getProperty } from "../../service/db-service";
 import { useState, useEffect } from "react";
 import { Property } from "../../types/types";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
+import { updateProperty } from "../../service/db-service";
+import { useUserAuth } from "../../context/userAuthContext";
+
+
 
 const SingleProperty = () => {
   const { id = "" } = useParams();
@@ -14,6 +18,8 @@ const SingleProperty = () => {
     lat: 43.2141,
     lng: 27.9147,
   });
+  const { user } = useUserAuth();
+
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -34,6 +40,21 @@ const SingleProperty = () => {
 
     fetchProperty();
   }, [id]);
+
+  const likeOrDislike = async () => {
+    if (user && property) {
+      const likes = Array.isArray(property.likes) ? property.likes : [];
+      if (likes.includes(user?.displayName ?? "")) {
+        const updatedLikes = likes.filter((like) => like !== user.displayName);
+        await updateProperty(property.id, { ...property, likes: updatedLikes });
+        setProperty({ ...property, likes: updatedLikes });
+      } else {
+        const updatedLikes = [...likes, user.displayName].filter((like) => like !== null) as string[];
+        await updateProperty(property.id, { ...property, likes: updatedLikes });
+        setProperty({ ...property, likes: updatedLikes });
+      }
+    }
+  };
 
   return (
     <div>
@@ -86,7 +107,7 @@ const SingleProperty = () => {
               {property?.street}, {property?.city}
             </p>
             <div>
-            <i className="fa-regular fa-heart fa-lg pr-3"></i>
+              <i onClick={likeOrDislike} className="fa-regular fa-heart fa-lg pr-3"></i>
               <i className="fa-regular fa-bookmark fa-lg"></i>
             </div>
           </div>
