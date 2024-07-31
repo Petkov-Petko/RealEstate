@@ -36,7 +36,7 @@ export const uploadUserPhoto = async (
 
 export const getUserPhoto = async (userEmail: string): Promise<string> => {
   try {
-    const photoRef = ref(storage, `users/${userEmail}`);
+    const photoRef = ref(storage, `users/${userEmail}/photo`);
     const url = await getDownloadURL(photoRef);
     return url;
   } catch (error) {
