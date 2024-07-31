@@ -65,11 +65,3 @@ export const googleSignIn = async () => {
         console.log(error);
       }
 }
-
-// export const changePassword = async (newPassword) => {
-//     try {
-//         updatePassword(auth.currentUser, newPassword)
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// };
