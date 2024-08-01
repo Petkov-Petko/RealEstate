@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Real Estate Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is a comprehensive real estate platform designed to facilitate the renting and buying of properties. Users can create accounts to access a wide range of property listings, each detailed with essential information and visualized on an interactive map. The platform aims to provide a seamless and user-friendly experience, allowing users to easily navigate through property options, view their locations, and manage their profiles.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+ **User Profiles**: Users have their own profiles and can modify their information.
+  
+  **Property Listings**: Browse properties available for rent or purchase.
+  
+  **Google Maps Integration**: View properties on an interactive map.
+  
+  **Responsive Design**: The website is designed to be responsive and user-friendly on all devices.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend**: 
+  - React
+  - TypeScript
+  - HTML
+  - CSS
+  - Tailwind
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Backend**: 
+  - Firebase
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **APIs**:
+  - Google Maps API
+
+- **Additional Tools**:
+  - ESLint (for code linting)
+  - Git (for version control)
+
+## Local Setup
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies by running the following command in the project directory:
+    ```
+    npm install
+    ```
+3. Start the development server:
+    ```
+    npm run dev
+    ```
+
+Please note that you need to have Node.js and npm installed on your machine to set up and run the project locally.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request
