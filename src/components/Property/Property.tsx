@@ -29,7 +29,7 @@ const PropertyStyle = ({property}: {property: Property}) => {
               </div>
               <div className="flex justify-between items-center">
                 <p>{property.city}</p>
-                <p><i className="fa-solid fa-location-dot fa-lg pr-1"></i>{property.street}</p>
+                <p className="max-w-48 truncate"><i className="fa-solid fa-location-dot fa-lg pr-1"></i>{property.street}</p>
               </div>
               <div className="flex gap-3 items-center mt-1">
                 <p><i className="fa-solid fa-door-open fa-lg pr-1"></i>{property.rooms} Rooms</p>
