@@ -24,9 +24,18 @@ const HomeContent = () => {
             const property = snapshot.val();
             propertiesList.push(property);
           });
+          propertiesList.sort((a, b) => {
+            const likesA = a.likes?.length ?? 0;
+            const likesB = b.likes?.length ?? 0;
+            return likesB - likesA;
+          });
           setProperties(propertiesList);
-          setPopularProperty(propertiesList[0]);
-          setPopularPropertyPhoto(propertiesList[0].photos[0]);
+          
+          const popularProperty = propertiesList.find((property) => {
+            return property.likes?.length === Math.max(...propertiesList.map((p) => p.likes?.length ?? 0));
+          });
+          setPopularProperty(popularProperty??null);
+          setPopularPropertyPhoto(popularProperty?.photos[0] ?? null);
         }
       } catch (error) {
         console.error("Failed to fetch properties:", error);
@@ -107,8 +116,8 @@ const HomeContent = () => {
                 )}
                 {popularProperty?.type}
               </p>
-              <p>stars</p>
-            </div>
+              <p><i className="fa-brands fa-gratipay fa-lg pr-1"></i>{popularProperty?.likes?.length ?? "0"}</p>
+              </div>
             <div className="flex justify-between items-center">
               <p
                 onClick={() => navigate(`/properties/${popularProperty?.id}`)}
@@ -141,6 +150,9 @@ const HomeContent = () => {
                 <i className="fa-solid fa-expand fa-lg pr-1"></i>
                 {popularProperty?.square}m2
               </p>
+            </div>
+            <div>
+              <p className="top_property_description">{popularProperty?.description}</p>
             </div>
           </div>
         </div>
