@@ -56,11 +56,11 @@ const PropertiesForm = () => {
           property.type === filters.homeType) &&
         (filters.city === "all" || property.city === filters.city) &&
         property.deal === filters.deal &&
-        (filters.maxPrice === 0 || (property.price !== null && property.price <= filters.maxPrice))
+        (filters.maxPrice === 0 ||
+          (property.price !== null && property.price <= filters.maxPrice))
       );
     });
     setFilteredProperties(filteredProperties);
-
   };
 
   return (
@@ -111,7 +111,7 @@ const PropertiesForm = () => {
         </button>
       </div>
       <div className="properties_container">
-        <div className="all-properties-map">
+        <div>
           <GoogleMap coordinates={coordinates} />
         </div>
         <div className="all-properties">
