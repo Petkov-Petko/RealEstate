@@ -68,3 +68,23 @@
     align-items: center;
     justify-content: center;
 }
+
+@media screen and (max-width: 960px) {
+    .popular-properties {
+        grid-template-columns: auto auto;
+    }
+    
+}
+@media screen and (max-width: 670px) {
+    .popular-properties {
+        grid-template-columns: auto;
+    }
+    .home_property img {
+        width: 200px;
+        height: 230px;
+    }
+    .home_property{
+        padding: 0px 10px;
+    }
+ 
+}
