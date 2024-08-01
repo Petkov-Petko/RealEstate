@@ -9,6 +9,7 @@ import {
   getUser,
 } from "../../service/db-service";
 import { UserDetails } from "../../types/types";
+import { handleUserDelete } from "../../service/auth";
 
 const EditButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <button onClick={onClick} className="edit_btn">
@@ -30,6 +31,9 @@ const Profile = () => {
     photo: "",
     username: "",
   });
+  const [image_changed_message, setImageChangedMessage] = useState<string>("");
+  const [user_details_message, setUserDetailsMessage] = useState<string>("");
+  const [delete_message, setDeleteMessage] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -61,8 +65,10 @@ const Profile = () => {
         console.log("File uploaded successfully.");
         const url = await getUserPhoto(user?.email ?? "");
         await editCredential(user?.displayName ?? "", "photo", url);
+        setImageChangedMessage("Image changed successfully.");
       } catch (error) {
         console.error("Error uploading file:", error);
+        setImageChangedMessage("Error changing image.");
       }
     }
   };
@@ -71,8 +77,17 @@ const Profile = () => {
   };
 
   const updateUserInfo = async () => {
+    if (!/^[0-9]+$/.test(userDetails.phone)) {
+      setUserDetailsMessage("Phone number should not contain letters.");
+      return;
+    } else if (userDetails.phone.length !== 10) {
+      setUserDetailsMessage("Phone number should be 10 digits.");
+      return;
+    }
     await editUserDetails(user?.displayName ?? "", userDetails);
+    setUserDetailsMessage("Profile updated successfully.");
   };
+
 
   return (
     <div className="profile_container">
@@ -105,6 +120,9 @@ const Profile = () => {
         </div>
         <EditButton onClick={updateStorageUrl} />
       </div>
+      {image_changed_message !== "" && (
+        <p className="text-lg font-semibold pl-3">{image_changed_message}</p>
+      )}
       <div className="profile_row flex flex-col gap-2">
         <h2 className="text-lg font-semibold pb-4">Personal Information</h2>
         <div className="flex gap-7">
@@ -211,8 +229,24 @@ const Profile = () => {
         <h2 className="text-lg font-semibold pb-4 text-red-600">
           Delete Account
         </h2>
-        <button className="delete_btn">Delete Account</button>
+        <button
+          onClick={() => setDeleteMessage(!delete_message)}
+          className="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110"
+        >
+          <i className="fa-solid fa-trash-can pr-1"></i>
+          Delete
+        </button>
+        {delete_message && (
+          <div className="mt-4">
+            <p className="mb-2">Are you sure you want to delete your profile?</p>
+            <button onClick={handleUserDelete} className="mr-3 inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">Yes</button>
+            <button onClick={()=>setDeleteMessage(false)} className="inline-flex items-center px-4 py-2 bg-black transition ease-in-out delay-75 hover:bg-black text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">No</button>
+          </div>
+        )}
       </div>
+      {user_details_message !== "" && (
+        <p className="text-lg font-semibold pl-3">{user_details_message}</p>
+      )}
     </div>
   );
 };
