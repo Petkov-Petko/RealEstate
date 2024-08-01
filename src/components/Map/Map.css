@@ -4,6 +4,22 @@
     float: right;
 }
 
+.marker_property {
+    background-color: rgb(255, 255, 255);
+    padding: 7px;
+    border-radius: 15px;
+}
+
+
+.marker_property img{
+    width: 100px;
+    height: 70px;
+    border-radius: 15px;
+
+}
+
+
+
 @media screen and (max-width: 1430px) {
     .map_container {
         width: 100%;
