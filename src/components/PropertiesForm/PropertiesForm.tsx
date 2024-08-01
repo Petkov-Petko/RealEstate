@@ -12,7 +12,8 @@ const PropertiesForm = () => {
   const [filters, setFilters] = useState({
     homeType: "All types",
     city: "Varna",
-    deal: "buy",
+    deal: "rent",
+    maxPrice: Infinity,
   });
   const [coordinates, setCoordinates] = useState({
     lat: 43.2141,
@@ -44,7 +45,6 @@ const PropertiesForm = () => {
   }, []);
 
   const filterProperties = () => {
-    console.log(filters);
     if (filters.city === "Sofia") {
       setCoordinates({ lat: 42.6977, lng: 23.3219 });
     } else {
@@ -55,10 +55,12 @@ const PropertiesForm = () => {
         (filters.homeType === "All types" ||
           property.type === filters.homeType) &&
         (filters.city === "all" || property.city === filters.city) &&
-        (filters.deal === "buy" || property.deal === filters.deal)
+        property.deal === filters.deal &&
+        (filters.maxPrice === 0 || (property.price !== null && property.price <= filters.maxPrice))
       );
     });
     setFilteredProperties(filteredProperties);
+
   };
 
   return (
@@ -97,6 +99,9 @@ const PropertiesForm = () => {
           <option value="rent">Rent</option>
         </select>
         <input
+          onChange={(e) =>
+            setFilters({ ...filters, maxPrice: +e.target.value })
+          }
           type="text"
           placeholder="Max Price"
           className="property-filters"
