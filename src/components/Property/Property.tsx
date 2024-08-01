@@ -20,7 +20,8 @@ const PropertyStyle = ({property}: {property: Property}) => {
                   )}
                   {property.type}
                 </p>
-                <p>stars</p>
+                <p><i className="fa-brands fa-gratipay fa-lg pr-1"></i>{property.likes?.length ?? "0"}</p>
+
               </div>
               <div className="flex justify-between items-center">
                 <p onClick={()=> navigate(`/properties/${property.id}`)} className="property-title">{property.name}</p>

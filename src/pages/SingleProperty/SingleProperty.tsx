@@ -109,13 +109,13 @@ const SingleProperty = () => {
               {property?.likes?.includes(user?.displayName ?? "") ? (
                 <i
                   onClick={likeOrDislike}
-                  className="fa-solid fa-heart fa-lg pr-3"
+                  className="fa-solid fa-heart fa-lg pr-3 cursor-pointer"
                   style={{ color: "#e71818" }}
                 ></i>
               ) : (
                 <i
                   onClick={likeOrDislike}
-                  className="fa-regular fa-heart fa-lg pr-3"
+                  className="fa-regular fa-heart fa-lg pr-3 cursor-pointer"
                 ></i>
               )}
 
