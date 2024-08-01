@@ -2,6 +2,7 @@ import "./Map.css";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import Markers from "./Markers";
 import { useEffect, useState } from "react";
+
 interface MapProps {
   coordinates: { lat: number; lng: number } | null;
 }
@@ -15,9 +16,9 @@ const GoogleMap = (props: MapProps) => {
   useEffect(() => {
     if (props.coordinates) {
       setCityCoordinates(props.coordinates);
+
     }
-    // console.log("props.coordinates", props.coordinates);
-    // console.log("cityCoordinates", cityCoordinates);
+    
   }, [props.coordinates]);
 
   return (
@@ -40,4 +41,3 @@ const GoogleMap = (props: MapProps) => {
 };
 
 export default GoogleMap;
-``;
