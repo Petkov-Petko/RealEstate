@@ -26,8 +26,6 @@ const Markers = () => {
       if (snapshot) {
         const properties = snapshot.val();
         if (properties) {
-          console.log("properties", properties);
-
           const formattedProperties = Object.values(properties).map(
             (prop: any) => ({
               id: prop.id,
@@ -47,7 +45,6 @@ const Markers = () => {
             })
           );
           setProperties(formattedProperties);
-          console.log("formattedProperties", formattedProperties);
         }
       }
     };
@@ -62,8 +59,8 @@ const Markers = () => {
             <div>
               <img src={point.image} alt={point.name} />
             </div>
-            <div className="marker_property_text pl-1 max-w-44 max-h-20 overflow-auto">
-              <h1 className="text-lg">{point.name}</h1>
+            <div className="marker_property_text pl-1 max-w-44 max-h-16 overflow-auto">
+              <h1 className="text-lg truncate">{point.name}</h1>
               <p className="font-bold">
                 ${point.price} {point?.deal === "rent" ? "/ month" : "/ buy"}
               </p>
