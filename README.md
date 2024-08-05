@@ -10,6 +10,8 @@ This project is a comprehensive real estate platform designed to facilitate the 
   
   **Property Listings**: Browse properties available for rent or purchase.
   
+  **Admin View**: Only the admin can add properties from an   admin view page.
+
   **Google Maps Integration**: View properties on an interactive map.
   
   **Responsive Design**: The website is designed to be responsive and user-friendly on all devices.
