@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
 import { createUser } from "../../service/db-service";
 import { assets } from "../../assets/assets";
+import { checkIfUserExists } from "../../service/db-service";
 
 const initialValue: UserLogIn = {
   email: "",
@@ -32,10 +33,15 @@ const LoginForm = () => {
     try {
       const userDetails = await googleSignIn();
       if (userDetails?.username && userDetails?.email) {
-        await createUser({
-          username: userDetails.username,
-          email: userDetails.email,
-        });
+        const [usernameSnapshot, emailSnapshot] = await checkIfUserExists(userDetails.username, userDetails.email);
+        const userExists = (usernameSnapshot && usernameSnapshot.exists()) || (emailSnapshot && emailSnapshot.exists());
+  
+        if (!userExists) {
+          await createUser({
+            username: userDetails.username,
+            email: userDetails.email,
+          });
+        }
         navigate("/home");
       }
     } catch (error) {

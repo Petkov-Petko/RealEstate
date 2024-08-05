@@ -72,10 +72,15 @@ const RegisterForm = () => {
     try {
       const userDetails = await googleSignIn();
       if (userDetails?.username && userDetails?.email) {
-        await createUser({
-          username: userDetails.username,
-          email: userDetails.email,
-        });
+        const [usernameSnapshot, emailSnapshot] = await checkIfUserExists(userDetails.username, userDetails.email);
+        const userExists = (usernameSnapshot && usernameSnapshot.exists()) || (emailSnapshot && emailSnapshot.exists());
+  
+        if (!userExists) {
+          await createUser({
+            username: userDetails.username,
+            email: userDetails.email,
+          });
+        }
         navigate("/home");
       }
     } catch (error) {
