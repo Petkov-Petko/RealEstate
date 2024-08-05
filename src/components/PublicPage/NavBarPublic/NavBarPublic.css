@@ -2,9 +2,31 @@
     color: #008080;
 }
 
-.public-li-el ul li:last-child a{
+.public-li-el ul li:last-child a {
     background-color: #008080;
     border-radius: 11px;
     padding: 11px;
     color: white;
+}
+
+@media screen and (max-width: 660px) {
+    .public_nav_el {
+        display: flex;
+        gap: 37px !important;
+    }
+
+    .public_nav {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+}
+@media screen and (max-width: 440px) {
+    .public_nav_el {
+        display: flex;
+        gap: 17px !important;
+    }
+
+ 
 }
