@@ -35,3 +35,13 @@
 .profile_container input::placeholder {
     color: rgb(0, 0, 0);
 }
+
+
+@media screen and (max-width: 440px) {
+.profile_row {
+    width: 330px !important;
+}
+.profile_row input, label, p{
+    width: 100px !important;
+}
+}
