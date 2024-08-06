@@ -8,6 +8,8 @@ import customer1 from './customer1.jpg';
 import customer2 from './customer2.jpg';
 import customer3 from './customer3.jpg';
 import user from './user.png';
+import public_home from './public_home.jpg';
+import public_team from './public_team.jpg';
 
 export const assets = {
     logo,
@@ -19,5 +21,7 @@ export const assets = {
     customer1,
     customer2,
     customer3,
-    user
+    user,
+    public_home,
+    public_team
 }
