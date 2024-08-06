@@ -1,4 +1,10 @@
-.span-color{
+.span-color {
     color: #008080;
     font-weight: bold;
+}
+
+.public_home_bot{
+    background-color: rgba(190, 197, 198, 0.313);
+    border-radius: 15px;
+    /* height: 320px; */
 }
