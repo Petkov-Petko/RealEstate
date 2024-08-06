@@ -9,15 +9,15 @@ const Footer = () => {
           <img className="w-52 " src={assets.logo} alt="logo" />
 
           <div className="socials-container">
-            <a href="#" className="social twitter">
+            <a href="https://x.com/" target="_blank" className="social twitter">
               <i className="fa-brands fa-x-twitter fa-lg"></i>
             </a>
 
-            <a href="#" className="social facebook">
+            <a href="https://www.facebook.com/" target="_blank" className="social facebook">
               <i className="fa-brands fa-facebook-f fa-lg"></i>
             </a>
 
-            <a href="#" className="social instagram">
+            <a href="https://www.instagram.com/" target="_blank" className="social instagram">
               <i className="fa-brands fa-instagram fa-lg"></i>
             </a>
           </div>
@@ -32,7 +32,7 @@ const Footer = () => {
               <a href="contacts">Contact Us</a>
             </li>
             <li>
-              <a href="terms">Terms and Conditions</a>
+              <a href="">Terms and Conditions</a>
             </li>
           </ul>
         </div>
