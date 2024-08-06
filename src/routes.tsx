@@ -11,6 +11,7 @@ import Contacts from "./pages/Contacts/Contacts";
 import SingleProperty from "./pages/SingleProperty/SingleProperty";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Profile from "./pages/Profile/Profile";
+import Saved from "./pages/Saved/Saved";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ export const router = createBrowserRouter([
         element: <Admin />,
         errorElement: <Error />,
       },
+      {
+        path: "/saved",
+        element: <Saved />,
+        errorElement: <Error />,
+      }
     ],
   },
   {
