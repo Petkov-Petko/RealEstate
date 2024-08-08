@@ -1,0 +1,7 @@
+.all_saved_properties{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-top: 35px;
+    gap: 15px;
+    justify-items: center;
+}
