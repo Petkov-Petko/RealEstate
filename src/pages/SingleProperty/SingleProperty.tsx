@@ -73,29 +73,22 @@ const SingleProperty = () => {
   const saveOrRemove = async () => {
     if (user && property) {
       const savedProperties = userDetails?.savedProperties ?? {};
+      const updatedSavedProperties = { ...savedProperties };
+  
       if (savedProperties[property.id]) {
-        const updatedSavedProperties = { ...savedProperties };
         delete updatedSavedProperties[property.id];
-        await editUserDetails(user.displayName ?? "", {
-          savedProperties: updatedSavedProperties,
-        });
-        setUserDetails({
-          ...userDetails,
-          savedProperties: updatedSavedProperties,
-        });
       } else {
-        const updatedSavedProperties = {
-          ...savedProperties,
-          [property.id]: true,
-        };
-        await editUserDetails(user.displayName ?? "", {
-          savedProperties: updatedSavedProperties,
-        });
-        setUserDetails({
-          ...userDetails,
-          savedProperties: updatedSavedProperties,
-        });
+        updatedSavedProperties[property.id] = true;
       }
+  
+      await editUserDetails(user.displayName ?? "", {
+        savedProperties: updatedSavedProperties,
+      });
+  
+      setUserDetails({
+        ...userDetails,
+        savedProperties: updatedSavedProperties,
+      });
     }
   };
 
