@@ -41,7 +41,9 @@
 .profile_row {
     width: 330px !important;
 }
-.profile_row input, label, p{
+.profile_row input,
+.profile_row label,
+.profile_row p {
     width: 100px !important;
 }
 }
