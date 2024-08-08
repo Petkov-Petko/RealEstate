@@ -2,10 +2,11 @@ import "./SingleProperty.css";
 import { useParams } from "react-router-dom";
 import { getProperty } from "../../service/db-service";
 import { useState, useEffect } from "react";
-import { Property } from "../../types/types";
+import { Property, UserDetails } from "../../types/types";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 import { updateProperty } from "../../service/db-service";
 import { useUserAuth } from "../../context/userAuthContext";
+import { getUser, editUserDetails } from "../../service/db-service";
 
 const SingleProperty = () => {
   const { id = "" } = useParams();
@@ -17,6 +18,7 @@ const SingleProperty = () => {
     lng: 27.9147,
   });
   const { user } = useUserAuth();
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -34,9 +36,22 @@ const SingleProperty = () => {
         console.error("Failed to fetch property:", error);
       }
     };
-
+    
+    const fetchUser = async () => {
+      try {
+        const snapshot = await getUser(user?.displayName ?? "");
+        if (snapshot && snapshot.exists()) {
+          setUserDetails(snapshot.val());
+          console.log(snapshot.val());
+          
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+    fetchUser();
     fetchProperty();
-  }, [id]);
+  }, [id, user]);
 
   const likeOrDislike = async () => {
     if (user && property) {
@@ -51,6 +66,35 @@ const SingleProperty = () => {
         ) as string[];
         await updateProperty(property.id, { ...property, likes: updatedLikes });
         setProperty({ ...property, likes: updatedLikes });
+      }
+    }
+  };
+
+  const saveOrRemove = async () => {
+    if (user && property) {
+      const savedProperties = userDetails?.savedProperties ?? {};
+      if (savedProperties[property.id]) {
+        const updatedSavedProperties = { ...savedProperties };
+        delete updatedSavedProperties[property.id];
+        await editUserDetails(user.displayName ?? "", {
+          savedProperties: updatedSavedProperties,
+        });
+        setUserDetails({
+          ...userDetails,
+          savedProperties: updatedSavedProperties,
+        });
+      } else {
+        const updatedSavedProperties = {
+          ...savedProperties,
+          [property.id]: true,
+        };
+        await editUserDetails(user.displayName ?? "", {
+          savedProperties: updatedSavedProperties,
+        });
+        setUserDetails({
+          ...userDetails,
+          savedProperties: updatedSavedProperties,
+        });
       }
     }
   };
@@ -118,8 +162,17 @@ const SingleProperty = () => {
                   className="fa-regular fa-heart fa-lg pr-3 cursor-pointer"
                 ></i>
               )}
-
-              <i className="fa-regular fa-bookmark fa-lg"></i>
+              {userDetails?.savedProperties?.[property?.id ?? ""] ? (
+                <i
+                  onClick={saveOrRemove}
+                  className="fa-solid fa-bookmark fa-lg"
+                ></i>
+              ) : (
+                <i
+                  onClick={saveOrRemove}
+                  className="fa-regular fa-bookmark fa-lg"
+                ></i>
+              )}
             </div>
           </div>
           <div>
