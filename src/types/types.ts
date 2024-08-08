@@ -30,10 +30,11 @@ export interface Property {
 export interface UserDetails {
     username: string;
     email: string;
-    first_name: string;
-    last_name: string;
-    phone: string;
-    country: string;
-    city: string;
-    photo: string;
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
+    country?: string;
+    city?: string;
+    photo?: string;
+    savedProperties?: { [propertyId: string]: boolean };
 }
