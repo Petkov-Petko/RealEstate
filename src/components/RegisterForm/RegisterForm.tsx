@@ -49,6 +49,7 @@ const RegisterForm = () => {
             username: userDetails.username,
             email: userDetails.email,
           });
+          
           await signUp(
             userDetails.email,
             userDetails.password,
