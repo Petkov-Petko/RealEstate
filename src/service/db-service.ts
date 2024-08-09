@@ -9,13 +9,19 @@ import {
   orderByChild,
   push,
 } from "firebase/database";
-import { Property } from "../types/types";
+import { Property, UserDetails } from "../types/types";
 
-interface UserDetails {
-  username: string;
-  email: string;
-}
+// interface UserDetails {
+//   username: string;
+//   email: string;
+// }
 
+/**
+ * Creates a new user in the database.
+ * 
+ * @param userDetails - The details of the user to be created.
+ * @returns A Promise that resolves to the result of the database operation.
+ */
 export const createUser = async (userDetails: UserDetails) => {
   try {
     return await set(
@@ -107,3 +113,13 @@ export const getUser = async (username: string) => {
     console.error("Error getting user: ", error);
   }
 }
+
+export const getSavedPropertiesIds = async (username: string) => {
+  try {
+    const snapshot = await get(ref(database, `users/${username}/savedProperties`));
+    return snapshot;
+  } catch (error) {
+    console.error("Error getting saved properties: ", error);
+  }
+}
+
