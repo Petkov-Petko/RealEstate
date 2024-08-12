@@ -16,6 +16,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { logIn, googleSignIn } = useUserAuth();
   const [userLogInInfo, setUserLogInInfo] = useState<UserLogIn>(initialValue);
+  const [wrongCredentialsMessage, setWrongCredentialsMessage] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const LoginForm = () => {
       navigate("/home");
     } catch (error) {
       console.log(error);
+      setWrongCredentialsMessage(true);
     }
   };
 
@@ -55,9 +57,10 @@ const LoginForm = () => {
       <img src={assets.logo} className="logo-position"></img>
       <div className="form-container">
         <p className="title">Welcome back</p>
-        <p className="text-xs pb-3 opacity-75">
+       
+        {wrongCredentialsMessage ? (<p className="text-xs pb-3 opacity-75">Wrong password or email.</p>) : (  <p className="text-xs pb-3 opacity-75">
           Enter your credentials and get ready to explore!
-        </p>
+        </p>)}
         <form className="form" onSubmit={handleSubmit}>
           <input
             value={userLogInInfo.email}
