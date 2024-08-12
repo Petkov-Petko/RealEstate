@@ -35,7 +35,7 @@ const RegisterForm = () => {
       }
       if (!regex_password.test(userDetails.password)) {
         alert(
-          "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character"
+          "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one digit."
         );
         return;
       }
