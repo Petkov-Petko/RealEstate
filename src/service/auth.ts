@@ -37,7 +37,7 @@ export const logIn = async (emailAddress: string, password: string) => {
         const userCredentials = await signInWithEmailAndPassword(auth, emailAddress, password);
         return userCredentials;
     } catch (error) {
-        console.log(error);
+        throw new Error('Invalid email or password');
     }
 }
 
