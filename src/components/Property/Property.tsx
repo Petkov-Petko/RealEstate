@@ -9,7 +9,7 @@ const PropertyStyle = ({property}: {property: Property}) => {
     <div>
       <div  className="property">
               <div>
-                <img src={property.photos[0]} alt="property" />
+                <img onClick={()=> navigate(`/properties/${property.id}`)} src={property.photos[0]} alt="property" />
               </div>
               <div className="flex justify-between items-center mt-2 ">
                 <p className="bg-teal-600 text-white p-1 rounded-xl">

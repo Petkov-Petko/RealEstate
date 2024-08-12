@@ -2,6 +2,7 @@
     width: 260px;
     height: 170px;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .property {
