@@ -77,10 +77,10 @@ const Profile = () => {
   };
 
   const updateUserInfo = async () => {
-    if (!/^[0-9]+$/.test(userDetails.phone)) {
+    if (!/^[0-9]+$/.test(userDetails.phone ?? "")) {
       setUserDetailsMessage("Phone number should not contain letters.");
       return;
-    } else if (userDetails.phone.length !== 10) {
+    } else if ((userDetails.phone ?? "").length !== 10) {
       setUserDetailsMessage("Phone number should be 10 digits.");
       return;
     }
