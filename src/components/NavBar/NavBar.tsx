@@ -1,7 +1,7 @@
 import "./NavBar.css";
 import { useUserAuth } from "../../context/userAuthContext";
 import { assets } from "../../assets/assets";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
