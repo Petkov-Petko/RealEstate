@@ -41,9 +41,7 @@ const SingleProperty = () => {
       try {
         const snapshot = await getUser(user?.displayName ?? "");
         if (snapshot && snapshot.exists()) {
-          setUserDetails(snapshot.val());
-          console.log(snapshot.val());
-          
+          setUserDetails(snapshot.val());   
         }
       } catch (error) {
         console.error("Failed to fetch user:", error);
