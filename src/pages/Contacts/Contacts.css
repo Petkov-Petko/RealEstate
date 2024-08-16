@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
-  margin: 35px 30px;
+  margin: 45px 30px;
   justify-content: space-between;
+  height: 70vh;
 }
 
 .contacts_left_side {
