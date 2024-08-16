@@ -5,7 +5,6 @@ import { getAuth } from "firebase/auth";
 import NavBar from "../../components/NavBar/NavBar";
 import NavBarPublic from "../../components/PublicPage/NavBarPublic/NavBarPublic";
 
-
 const AboutUs = () => {
   const auth = getAuth();
   const [user] = useAuthState(auth);
@@ -33,22 +32,25 @@ const AboutUs = () => {
               service from us.
             </p>
             <table>
-              <tr>
-                <th className="text-4xl">950+</th>
-                <th className="text-4xl">342</th>
-                <th className="text-4xl">12</th>
-              </tr>
-              <tr>
-                <td className="text-sm text-center opacity-75">
-                  Happy Customers
-                </td>
-                <td className="text-sm text-center opacity-75">
-                  RealEstate Partners
-                </td>
-                <td className="text-sm text-center opacity-75">
-                  Years Experience
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th className="text-4xl">950+</th>
+                  <th className="text-4xl">342</th>
+                  <th className="text-4xl">12</th>
+                </tr>
+
+                <tr>
+                  <td className="text-sm text-center opacity-75">
+                    Happy Customers
+                  </td>
+                  <td className="text-sm text-center opacity-75">
+                    RealEstate Partners
+                  </td>
+                  <td className="text-sm text-center opacity-75">
+                    Years Experience
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
