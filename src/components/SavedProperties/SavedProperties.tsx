@@ -22,9 +22,6 @@ const SavedProperties = () => {
             const property = snapshot.val();
             propertiesList.push(property);
           });
-
-          console.log(propertiesList);
-
           const propertiesIds = await getSavedPropertiesIds(
             user?.displayName ?? ""
           );
