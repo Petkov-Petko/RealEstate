@@ -31,7 +31,6 @@ export const UserAuthProvider: React.FC<IUserAuthProviderProps> = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("The logged in user is: ", user);
         setUser(user);
       }
 
